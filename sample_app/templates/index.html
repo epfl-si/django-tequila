@@ -1,0 +1,8 @@
+<div><a href="/login">Login</a></div>
+<div><a href="/logout">Logout</a></div>
+<div><a href="{% url protected %}">Protected</a></div>
+<div><a href="{% url unprotected %}">UnProtected</a></div>
+
+<div>User connected :<br>
+	{{ user }}
+</div>

@@ -1,0 +1,29 @@
+1.3.1
+-----
+* Switched repository to git
+* Better documentation
+* improved distribution
+    
+1.3
+---
+* Added TEQUILA_CONFIG_ALLOW option to set a custom allow parameter
+* Added TEQUILA_CONFIG_ADDITIONAL option to set a custom parameter
+
+1.2
+---
+* Added "memberof" attribute
+* Tequila python client doesn't need django anymore
+	
+..	Warning::
+	You have to change your settings to "AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)" if you used the 1.1 version
+	
+1.1
+---
+* Better url separation
+* Easier installation by using pip or python setup.py install
+* Renamed from tequila-django to django-tequila
+* Separated sample and functionalities
+	
+1.0
+---
+* Initial release
