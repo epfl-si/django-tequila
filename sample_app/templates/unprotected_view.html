@@ -1,0 +1,8 @@
+Successfully seeing a non-protected view.<br />
+User = {{ user }}<br />
+
+{% if user.is_authenticated %}
+    {{ logout_url }}
+{% else %}
+    {{ login_url }}
+{% endif %}

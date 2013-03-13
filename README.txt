@@ -1,4 +1,3 @@
-.. -*- restructuredtext -*-
 ==========================================================
 `django-tequila <http://kis-doc.epfl.ch/django-tequila/>`_
 ==========================================================
@@ -46,6 +45,7 @@ settings.py
 	LOGIN_URL = "/login"
 	LOGIN_REDIRECT_URL = "/"
 	LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
+        LOGOUT_URL = '/'
 
 urls.py
 -------
@@ -93,8 +93,30 @@ Take a look at `this page <http://docs.djangoproject.com/en/dev/topics/auth/#sto
 	
 	./manage.py syncdb
 
-Additional settings
-===================
+Site Admin customizations
+-------------------------
+If you want to use the admin site, be sure you have followed all steps to have a working django admin site,
+then follow these steps :
+
+* Modify your urls.py to look like this::
+
+    from django.contrib import admin
+    from django_tequila.admin import TequilaAdminSite
+    admin.autodiscover()
+    admin.site.__class__ = TequilaAdminSite
+
+* Please note that your username should identical to the one you use to login in Tequila. 
+  If you do not have any user at the moment, or you want to edit some of them,
+  create a superuser with this command (replace <USERNAME> and <EMAIL> with you Tequila username and email)::
+
+    python manage.py createsuperuser --username=<USERNAME> --email=<EMAIL>
+
+
+Additional tips and settings
+============================
+
+Advanced settings
+-----------------
 
 * You may want to create an inactive user when someone try to connect to your app. So you can manually control who access it. 
   If this is the case, add this line to `settings.py`::
@@ -111,7 +133,35 @@ Additional settings
 	
 	TEQUILA_CONFIG_ADDITIONAL = {'allowedorgs': 'EPFL, UNIL'}
 
+* Everytime the user connect trought the Tequila process, he is redirected to an url
+  that has a 'key' paramter. For some esthetic reasons,you may want to remove this parameter,
+  so add this line to `settings.py`::
+   
+    TEQUILA_CLEAN_URL = True
+
+  As it creates a redirect to the cleaned address and add an additional page hit, The value by default is False 
+
+* You can force a strong authentication
+  so add this line to `settings.py`::
+   
+    TEQUILA_STRONG_AUTHENTICATION = True
+
+  Default value is False   
+
+Login/logout links
+------------------
+
+If you want the user to be redirected to a specific page after he logged/logout successfully, you have to add the 'next' parameter to your login url,
+like the default Django authentication backend.
+See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more informations.
+
+
 Help & Contributing
 ===================
 Feel free to contact me (julien dot delasoie at epfl dot ch) with any questions or concerns you may have with the
 module.
+
+Source code
+-----------
+The EPFL Sphinx theme is hosted on the `EPFL git repository <http://git.epfl.ch>`_, at https://git.epfl.ch/repo/django-tequila.git.
+

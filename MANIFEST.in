@@ -1,5 +1,3 @@
 recursive-include sample_app *.*
-include docs/conf.py
-include docs/Makefile
 recursive-exclude * .DS_Store
 recursive-exclude * *.pyc

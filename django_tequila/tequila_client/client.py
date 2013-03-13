@@ -1,3 +1,4 @@
+from django.utils.encoding import smart_str
 import urllib
 import urllib2
 
@@ -32,17 +33,11 @@ class TequilaClient(object):
             return self.request_key
         
         if self.config.request:
-            list_request = ""
-        
-            for request in self.config.request:
-                if list_request:
-                    list_request += "+" 
-                
-                list_request += request
+            list_request = '+'.join(self.config.request)
         else:
             raise ValueError("username attribute is mandatory in request")
        
-        params = {'urlacces' : self.config.redirect_to,
+        params = {'urlacces' : smart_str(self.config.redirect_to),
                   'service' : self.config.service,
                   'allows' : self.config.allows
                  }

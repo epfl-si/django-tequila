@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns
+from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     url(r'^login/$', 'django_tequila.tequila_auth_views.login', name='login_view'),

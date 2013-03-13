@@ -2,7 +2,6 @@
 .project
 .pydevproject
 *~
-*.db
 *.orig
 *.DS_Store
 *.swp

@@ -10,7 +10,8 @@ class Config(object):
                  langage = None,
                  want_right = None,
                  want_role = None,
-                 allows = None
+                 allows = None,
+                 strong_authentication = False
                  ):
         self.server_url = ""
         
@@ -23,6 +24,15 @@ class Config(object):
             self.redirect_to = None
             
         self.additional_params = additional_params
+
+        if strong_authentication:
+            strong_authentication_param = {'authstrength' : 3}
+            
+            if self.additional_params:
+                self.additional_params.update(strong_authentication_param)
+            else:
+                self.additional_params = strong_authentication_param
+        
         self.service = service
         self.request = request
         self.langage = langage or "english"

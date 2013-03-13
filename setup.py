@@ -3,6 +3,7 @@ from distutils.core import setup
 setup(
     name='django-tequila',
     version=__import__('django_tequila').__version__,
+    
     author='Julien Delasoie',
     author_email='julien.delasoie at epfl ch',
     keywords='django, tequila, authentication',
@@ -10,7 +11,7 @@ setup(
     url='http://kis-doc.epfl.ch/django-tequila/',
     license="LGPLv3",
     description='A Tequila authentication backend for django',
-    long_description=open('README.txt', 'r').read(),
+    long_description=open('README', 'r').read(),
 
     packages = ['django_tequila',
                 'django_tequila.django_backend',

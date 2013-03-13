@@ -79,7 +79,11 @@ class TequilaBackend(RemoteUserBackend):
             pass
             
         if not user.first_name:
-            user.first_name = user_attributes['firstname']
+            # try a manual truncate if necessary, else allow the truncate warning to be raised
+            if len(user_attributes['firstname']) > user._meta.get_field('last_name').max_length and user_attributes['firstname'].find(',') != -1:
+                user.first_name = user_attributes['firstname'].split(',')[0]
+            else:
+                user.first_name = user_attributes['firstname']
             
         if not user.last_name:
             user.last_name = user_attributes['name']

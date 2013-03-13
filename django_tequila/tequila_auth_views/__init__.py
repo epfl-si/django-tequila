@@ -33,12 +33,18 @@ def login(request):
         service_name = settings.TEQUILA_SERVICE_NAME
     except AttributeError:
         service_name = 'Unknown application'
+        
+    try:
+        strong_authentication = settings.TEQUILA_STRONG_AUTHENTICATION
+    except AttributeError:
+        strong_authentication = False    
     
     tequila_client = TequilaClient(EPFLConfig(additional_params = additional_params,
                                         redirect_to = next_path,
                                         allows = allows_needed,
                                         service = service_name,
-                                        allow_guests = True))
+                                        allow_guests = True,
+                                        strong_authentication = strong_authentication))
     
     request.session.set_test_cookie()
     
@@ -46,10 +52,15 @@ def login(request):
 login = never_cache(login)
 
 def logout(request):
+    if request.GET.get(REDIRECT_FIELD_NAME):
+        next_path = request.GET[REDIRECT_FIELD_NAME]
+    else:
+        next_path = settings.LOGOUT_URL
+
     from django.contrib.auth import logout as auth_logout
     auth_logout(request)    
     
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(next_path)
 
 def not_allowed(request):
     return HttpResponse("Not allowed")

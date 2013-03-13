@@ -1,4 +1,4 @@
-# Django settings for tequila_django project.
+# Django settings for sample_app project.
 import os
 this_dir = os.path.dirname(__file__)
 
@@ -6,79 +6,71 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
-#DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-#DATABASE_NAME = 'tequila'             # Or path to database file if using sqlite3.
-#DATABASE_USER = 'curator'             # Not used with sqlite3.
-#DATABASE_PASSWORD = 'ispwd'         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.normpath(os.path.join(this_dir, 'database.db')),                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.normpath(os.path.join(this_dir, 'database.db'))          # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.    
-
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'America/Chicago'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.normpath(os.path.join(this_dir,"media"))
+USE_L10N = True
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/'
+USE_TZ = True
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+MEDIA_ROOT = ''
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '(f#i34_#6o9z%!mlmz4z)icyj&ihq=o1c$3s9@=i1rp1qx*%@n'
+MEDIA_URL = ''
 
-# List of callables that know how to import templates from various sources.
+STATIC_ROOT = ''
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+SECRET_KEY = '_jnlqznqi)s#h#=-v#faq_25^m_9+gjk8l^qmwjl6^iu)rztdf'
+
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.csrf.middleware.CsrfMiddleware',
     'django_tequila.middleware.TequilaMiddleware',
 )
 
 ROOT_URLCONF = 'sample_app.urls'
 
+WSGI_APPLICATION = 'sample_app.wsgi.application'
+
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.normpath(os.path.join(this_dir, "templates")),
+   os.path.normpath(os.path.join(this_dir, "templates")),
 )
 
 INSTALLED_APPS = (
@@ -86,14 +78,21 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
     'django_tequila',
-    'sample_app',
+    'sample_app',    
 )
+
 
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 AUTH_PROFILE_MODULE = "sample_app.userprofile"
 TEQUILA_SERVICE_NAME = "django_tequila_service"
 TEQUILA_NEW_USER_INACTIVE = False
+TEQUILA_CLEAN_URL = True
+TEQUILA_STRONG_AUTHENTICATION = True
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
+LOGOUT_URL = "/"

@@ -1,8 +1,17 @@
+<h3>Actions :</h3>
 <div><a href="/login">Login</a></div>
 <div><a href="/logout">Logout</a></div>
+<br />
+<h3>Pages :</h3>
 <div><a href="{% url protected %}">Protected</a></div>
 <div><a href="{% url unprotected %}">UnProtected</a></div>
+<div><a href="/admin">Admin</a></div>
 
-<div>User connected :<br>
-	{{ user }}
+<br />
+<br />
+<div>User info :<br />
+    <ul>
+	   <li>{{ user.first_name }}</li>
+	   <li>Is staff (admin access) ? : {{ user.is_staff }}</li>
+	</ul>
 </div>
