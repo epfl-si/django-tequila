@@ -1,4 +1,3 @@
-==========================================================
 `django-tequila <http://kis-doc.epfl.ch/django-tequila/>`_
 ==========================================================
 
@@ -154,14 +153,4 @@ Login/logout links
 If you want the user to be redirected to a specific page after he logged/logout successfully, you have to add the 'next' parameter to your login url,
 like the default Django authentication backend.
 See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more informations.
-
-
-Help & Contributing
-===================
-Feel free to contact me (julien dot delasoie at epfl dot ch) with any questions or concerns you may have with the
-module.
-
-Source code
------------
-The EPFL Sphinx theme is hosted on the `EPFL git repository <http://git.epfl.ch>`_, at https://git.epfl.ch/repo/django-tequila.git.
 
