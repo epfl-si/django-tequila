@@ -1,5 +1,8 @@
 Change log
 ==========
+1.9.2
+------
+Fixed missing server_url paramater
 
 1.9.1
 -----
