@@ -117,7 +117,8 @@ Additional tips and settings
 Advanced settings
 -----------------
 
-* If you need to use your personal server, change this parameter ::
+* If you need to use your personal server, change this parameter::
+
 	TEQUILA_SERVER_URL = "https://tequila.epfl.ch"
 
 * You may want to create an inactive user when someone try to connect to your app. So you can manually control who access it. 
