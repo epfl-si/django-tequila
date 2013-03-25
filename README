@@ -44,7 +44,7 @@ settings.py
 	LOGIN_URL = "/login"
 	LOGIN_REDIRECT_URL = "/"
 	LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
-        LOGOUT_URL = '/'
+    LOGOUT_URL = '/'
 
 urls.py
 -------
@@ -116,6 +116,9 @@ Additional tips and settings
 
 Advanced settings
 -----------------
+
+* If you need to use your personal server, change this parameter ::
+	TEQUILA_SERVER_URL = "https://tequila.epfl.ch"
 
 * You may want to create an inactive user when someone try to connect to your app. So you can manually control who access it. 
   If this is the case, add this line to `settings.py`::

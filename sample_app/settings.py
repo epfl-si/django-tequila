@@ -89,6 +89,7 @@ INSTALLED_APPS = (
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 AUTH_PROFILE_MODULE = "sample_app.userprofile"
 TEQUILA_SERVICE_NAME = "django_tequila_service"
+TEQUILA_SERVER_URL = "https://tequila.epfl.ch"
 TEQUILA_NEW_USER_INACTIVE = False
 TEQUILA_CLEAN_URL = True
 TEQUILA_STRONG_AUTHENTICATION = True

@@ -24,6 +24,12 @@ class TequilaBackend(RemoteUserBackend):
     except AttributeError:
         set_created_user_at_inactive = False
     
+    """ Set server url"""
+    try:
+        tequila_server_url = settings.TEQUILA_SERVER_URL
+    except AttributeError:
+        tequila_server_url = "" 
+    
     def authenticate(self, tequila_key):
         """
         The username passed as ``remote_user`` is considered trusted.  This
@@ -37,8 +43,10 @@ class TequilaBackend(RemoteUserBackend):
             return
         user = None
 
-        user_attributes = TequilaClient(EPFLConfig()).get_attributes(tequila_key)
-        
+        if self.tequila_server_url:
+            user_attributes = TequilaClient(EPFLConfig(server_url = self.tequila_server_url)).get_attributes(tequila_key)
+        else:
+            user_attributes = TequilaClient(EPFLConfig()).get_attributes(tequila_key)
         username = user_attributes['username']
         
         if username.find(","):

@@ -20,6 +20,11 @@ def login(request):
     next_path = request.get_host() + next_path
     
     try:
+        server_url = settings.TEQUILA_SERVER_URL
+    except AttributeError:
+        server_url = ""     
+    
+    try:
         additional_params = settings.TEQUILA_CONFIG_ADDITIONAL
     except AttributeError:
         additional_params = None
@@ -39,7 +44,8 @@ def login(request):
     except AttributeError:
         strong_authentication = False    
     
-    tequila_client = TequilaClient(EPFLConfig(additional_params = additional_params,
+    tequila_client = TequilaClient(EPFLConfig(server_url = server_url,
+                                        additional_params = additional_params,
                                         redirect_to = next_path,
                                         allows = allows_needed,
                                         service = service_name,

@@ -1,8 +1,8 @@
 class Config(object):
     def __init__(self,
+                 server_url,
                  additional_params = None,
                  redirect_to = None,
-                 server_url = "",
                  service = None,
                  request = None,
                  language = None,
@@ -43,11 +43,11 @@ class Config(object):
 class EPFLConfig(Config):
     """ More info on https://tequila.epfl.ch/info """
     def __init__(self, allow_guests = False, *args, **kwargs):
+        if not kwargs.get('server_url'):
+            kwargs['server_url'] = "https://tequila.epfl.ch"
+
         super(EPFLConfig, self).__init__(*args, **kwargs)
         
-        if not kwargs.get('server_url'):
-            self.server_url = "https://tequila.epfl.ch"
-            
         if not kwargs.get('org'):
             self.org = "EPFL"
             
