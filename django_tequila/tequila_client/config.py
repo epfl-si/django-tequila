@@ -2,6 +2,7 @@ class Config(object):
     def __init__(self,
                  additional_params = None,
                  redirect_to = None,
+                 server_url = "",
                  service = None,
                  request = None,
                  language = None,
@@ -13,7 +14,8 @@ class Config(object):
                  allows = None,
                  strong_authentication = False
                  ):
-        self.server_url = ""
+        
+        self.server_url = server_url
         
         if redirect_to:
             if redirect_to.find('http://') == -1 :
