@@ -1,5 +1,9 @@
 Change log
 ==========
+1.9.5
+-----
+TEQUILA_CLEAN_URL work with Django 1.5+ now
+
 1.9.4
 -----
 Allow to set server_url from settings

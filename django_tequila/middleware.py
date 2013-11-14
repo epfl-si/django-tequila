@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.contrib.auth import views
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, QueryDict
 
 from django.utils.http import urlencode
 
@@ -16,12 +16,18 @@ def get_query_string(params, new_params=None, remove=None):
         for k in p.keys():
             if k.startswith(r):
                 del p[k]
+                
     for k, v in new_params.items():
         if v is None:
             if k in p:
                 del p[k]
         else:
             p[k] = v
+    
+    for k, v in p.items():
+        if isinstance(v, (list,tuple)):
+            p[k] = v[0]
+    
     return '?%s' % urlencode(p)
 
 class TequilaMiddleware(RemoteUserMiddleware):
@@ -78,7 +84,11 @@ class TequilaMiddleware(RemoteUserMiddleware):
                 if clean_url:
                     #get the url, remove key and redirect to it
                     cleaned_url = request.path
-                    cleaned_url += get_query_string(request.GET, remove=self.header)
+                    
+                    #QueryDict to dict
+                    params = dict(request.GET.iterlists())
+                    
+                    cleaned_url += get_query_string(params, remove=self.header)
                     return HttpResponseRedirect(cleaned_url)
 
             except AttributeError:
