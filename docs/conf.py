@@ -13,8 +13,6 @@
 
 import sys, os
 
-import epfl_theme
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -94,8 +92,12 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'epfl'
-html_theme_path = [epfl_theme.get_theme_dir()]
+try:
+    import epfl_theme
+    html_theme = 'epfl'
+    html_theme_path = [epfl_theme.get_theme_dir()]
+except ImportError:
+    html_theme = 'default'
 
 #html_sidebars = epfl_theme.default_sidebars()
 
