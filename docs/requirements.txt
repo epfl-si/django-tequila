@@ -1,0 +1,2 @@
+sphinx
+epfl-sphinx-theme
