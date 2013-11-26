@@ -1,67 +1,52 @@
-# Django settings for sample_app project.
+"""
+Django settings for sample_app project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-this_dir = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '+jnvf=z69!l@j(^*^h*+fdlt_61!1v446znccb)9%@tjiw1@x-'
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
+TEMPLATE_DEBUG = True
 
-MANAGERS = ADMINS
+ALLOWED_HOSTS = []
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.normpath(os.path.join(this_dir, 'database.db')),                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
-TIME_ZONE = 'America/Chicago'
+# Application definition
 
-LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-MEDIA_ROOT = ''
-
-MEDIA_URL = ''
-
-STATIC_ROOT = ''
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-SECRET_KEY = '_jnlqznqi)s#h#=-v#faq_25^m_9+gjk8l^qmwjl6^iu)rztdf'
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django_tequila',
+    'sample_app',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_tequila.middleware.TequilaMiddleware',
 )
 
@@ -69,22 +54,38 @@ ROOT_URLCONF = 'sample_app.urls'
 
 WSGI_APPLICATION = 'sample_app.wsgi.application'
 
-TEMPLATE_DIRS = (
-   os.path.normpath(os.path.join(this_dir, "templates")),
-)
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django_tequila',
-    'sample_app',    
-)
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'sample_app', 'database.db'),
+    }
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_URL = '/static/'
+
+
+# Django-tequila specifics
 
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 AUTH_PROFILE_MODULE = "sample_app.userprofile"

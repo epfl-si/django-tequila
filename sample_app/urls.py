@@ -1,9 +1,9 @@
-from django.conf.urls.defaults import *
-
-from django_tequila.urls import urlpatterns as django_tequila_urlpatterns
+from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
+
 from django_tequila.admin import TequilaAdminSite
+from django_tequila.urls import urlpatterns as django_tequila_urlpatterns
 
 admin.autodiscover()
 admin.site.__class__ = TequilaAdminSite

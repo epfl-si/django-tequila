@@ -2,10 +2,9 @@ from django.conf import settings
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseForbidden, HttpResponseRedirect, QueryDict
-from django.utils.functional import update_wrapper
+from functools import update_wrapper
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic.simple import redirect_to
 import urlparse
 
 class TequilaAdminSite(AdminSite):
@@ -49,6 +48,6 @@ class TequilaAdminSite(AdminSite):
     def not_allowed_redirect(self, request):
         try:
             not_allowed_login_url = settings.LOGIN_REDIRECT_IF_NOT_ALLOWED
-            return redirect_to(request, not_allowed_login_url, False)
-        except AttributeError:            
+            return HttpResponseRedirect(not_allowed_login_url)
+        except AttributeError:    
             return HttpResponseForbidden("Access forbidden")

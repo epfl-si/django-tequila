@@ -17,7 +17,7 @@ setup(
                 'django_tequila.django_backend',
                 'django_tequila.tequila_client',
                 'django_tequila.tequila_auth_views'],
-    install_requires=('django>=1.1', ),
+    install_requires=('django>=1.6', ),
     
     classifiers=[
         'Programming Language :: Python',

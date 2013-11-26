@@ -1,5 +1,10 @@
 Change log
 ==========
+
+2.0.0
+-----
+Moved to Django 1.6
+
 1.9.6
 -----
 Fix for doc
