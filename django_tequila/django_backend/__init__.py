@@ -85,19 +85,36 @@ class TequilaBackend(RemoteUserBackend):
             profile.save()
         except Exception:
             pass
-            
-        if not user.first_name:
+        
+        ###
+        #check for create or update field part
+        if user_attributes['firstname']:
             # try a manual truncate if necessary, else allow the truncate warning to be raised
             if len(user_attributes['firstname']) > user._meta.get_field('last_name').max_length and user_attributes['firstname'].find(',') != -1:
-                user.first_name = user_attributes['firstname'].split(',')[0]
+                first_name_formatted = user_attributes['firstname'].split(',')[0]
+            else:            
+                first_name_formatted = user_attributes['firstname']
+            
+            if user.first_name:
+                # need update ?
+                if user.first_name != first_name_formatted:
+                    user.first_name = first_name_formatted
             else:
-                user.first_name = user_attributes['firstname']
-            
-        if not user.last_name:
-            user.last_name = user_attributes['name']
-            
-        if not user.email:
-            user.email = user_attributes['email']
+                user.first_name = first_name_formatted
+        
+        if user_attributes['name']:
+            if user.last_name:
+                if user.last_name != user_attributes['name']:
+                    user.last_name = user_attributes['name']
+            else:
+                user.last_name = user_attributes['name']
+        
+        if user_attributes['email']:
+            if user.email:
+                if user.email != user_attributes['email']:
+                    user.email = user_attributes['email']
+            else:
+                user.email = user_attributes['email']
             
         user.save()
         
