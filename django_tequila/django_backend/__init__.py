@@ -48,10 +48,12 @@ class TequilaBackend(RemoteUserBackend):
         else:
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(tequila_key)
         username = user_attributes['username']
-        
+
+        #keep only the first username, not the user@unit or the multiple users
         if username.find(","):
-            #keep only the first username, not the user@unit
             username = username.split(",")[0]
+            if username.find("@"):
+                username = username.split("@")[0]
 
         # Note that this could be accomplished in one try-except clause, but
         # instead we use get_or_create when creating unknown users since it has

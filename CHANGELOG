@@ -1,5 +1,10 @@
 Change log
 ==========
+
+2.0.2
+-----
+Fix for the new Tequila username model
+
 2.0.1
 -----
 Apply any changes found from Tequila to the local model now
