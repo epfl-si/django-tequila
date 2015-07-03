@@ -1,5 +1,12 @@
 Change log
 ==========
+2.0.4
+-----
+Django is no more required, only recommended
+
+2.0.3
+-----
+Moved to Django 1.8
 
 2.0.2
 -----

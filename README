@@ -7,7 +7,7 @@
 Requirements
 ============
 
-``django-tequila`` needs a modern version of Django – something after 1.6.
+``django-tequila`` needs a modern version of Django – something after 1.8.
 See django-tequila 1.9.x for the pre Django 1.6.
 This project also expects a fully operational `Tequila <http://tequila.epfl.ch/>`_ server.
 
@@ -71,7 +71,7 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
 	
 	class UserProfile(models.Model):
 	    #required field
-	    user = models.ForeignKey(User, unique=True)
+        user = models.OneToOneField(User, related_name="profile")
 	    
 	    sciper = models.PositiveIntegerField(null=True, blank=True)
 	    where = models.CharField(max_length=100, null=True, blank=True)

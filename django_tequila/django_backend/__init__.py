@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import RemoteUserBackend
-from django.contrib.auth.models import User, SiteProfileNotAvailable
+from django.contrib.auth.models import User
 from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client.config import EPFLConfig
 from django.conf import settings
@@ -76,15 +76,14 @@ class TequilaBackend(RemoteUserBackend):
     def update_attributes_from_tequila(self, user, user_attributes):
         """ Fill the user profile with tequila attributes """
         try:
-            profile = user.get_profile()
-            profile.sciper = user_attributes.get('uniqueid')
-            profile.where = user_attributes.get('where')
-            profile.unit = user_attributes.get('allunits')
-            profile.group = user_attributes.get('group')
-            profile.classe = user_attributes.get('classe')
-            profile.statut = user_attributes.get('statut')
-            profile.memberof = user_attributes.get('memberof')
-            profile.save()
+            user.profile.sciper = user_attributes.get('uniqueid')
+            user.profile.where = user_attributes.get('where')
+            user.profile.unit = user_attributes.get('allunits')
+            user.profile.group = user_attributes.get('group')
+            user.profile.classe = user_attributes.get('classe')
+            user.profile.statut = user_attributes.get('statut')
+            user.profile.memberof = user_attributes.get('memberof')
+            user.profile.save()
         except Exception:
             pass
         

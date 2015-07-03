@@ -3,7 +3,7 @@ from django.db import models
 
 class UserProfile(models.Model):
     #required field
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, related_name="profile")
     
     sciper = models.CharField(max_length=100, null=True, blank=True)
     where = models.CharField(max_length=100, null=True, blank=True)

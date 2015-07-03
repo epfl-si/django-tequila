@@ -14,7 +14,7 @@ def protected_view(request):
     profile = ""
 
     if request.user.is_authenticated():
-        profile = request.user.get_profile()
+        profile = request.user.profile
 
     return HttpResponse("Successfully seeing a protected view.")
     

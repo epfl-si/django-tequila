@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='django-tequila',
@@ -17,8 +17,7 @@ setup(
                 'django_tequila.django_backend',
                 'django_tequila.tequila_client',
                 'django_tequila.tequila_auth_views'],
-    install_requires=('django>=1.6', ),
-    
+
     classifiers=[
         'Programming Language :: Python',
         'Development Status :: 5 - Production/Stable',
