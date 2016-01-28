@@ -58,6 +58,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -100,12 +101,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Added from default settings : 
-TEMPLATE_DEBUG = True
 
 # Django-tequila specifics
-
-
 
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 AUTH_PROFILE_MODULE = "sample_app.userprofile"

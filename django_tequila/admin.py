@@ -1,3 +1,10 @@
+try:
+    # For python 2
+    import urlparse
+except ImportError:
+    # For python 3
+    from urllib.parse import urlparse, urlunparse
+
 from django.conf import settings
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -5,7 +12,6 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect, QueryDict
 from functools import update_wrapper
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-import urlparse
 
 class TequilaAdminSite(AdminSite):
     def admin_view(self, view, cacheable=False):
@@ -35,7 +41,7 @@ class TequilaAdminSite(AdminSite):
         try:
             login_url = settings.LOGIN_URL
         except AttributeError:
-            raise ImproperlyConfigured("You have to set a LOGIN_URL in your settings.py")            
+            raise ImproperlyConfigured("You have to set a LOGIN_URL in your settings.py")
 
         next_url = request.get_full_path()
         login_url_parts = list(urlparse.urlparse(login_url))

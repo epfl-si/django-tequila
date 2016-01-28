@@ -1,8 +1,30 @@
 from django.utils.encoding import smart_str
 import urllib
-import urllib2
+import sys
 
-class TequilaClient(object): 
+try:
+    # For Python 2
+    from urllib2 import Request
+except ImportError:
+    # For Python 3
+    from urllib.request import Request
+
+try:
+    # For Python 2
+    url_encoding_method = urllib.urlencode
+except AttributeError:
+    # For Python 3
+    url_encoding_method = urllib.parse.urlencode
+
+try:
+    # For Python 2
+    from urllib2 import urlopen
+except ImportError:
+    # For Python 3
+    from urllib.request import urlopen
+
+
+class TequilaClient(object):
     def __init__(self, config):
         self.config = config
         
@@ -14,17 +36,16 @@ class TequilaClient(object):
         url_values = None
         
         if data:
-            url_values = urllib.urlencode(data)
+            url_values = url_encoding_method(data)
         if url_values:
             url + "?" + url_values
-            req = urllib2.Request(url + "?" + url_values + additional_values)
+            req = Request(url + "?" + url_values + additional_values)
         else:
-            req = urllib2.Request(url)
+            req = Request(url)
 
-#        try:
-        response = urllib2.urlopen(req)
-#        except HTTPError, e:
-#        except URLError, e:
+        # TODO: try..except HTTPError or URLError
+        response = urlopen(req)
+
         return response.read()
     
     def _get_key(self):
@@ -52,7 +73,12 @@ class TequilaClient(object):
     key = property(_get_key)
     
     def login_url(self):
-        return self.config.server_url + "/cgi-bin/tequila/auth?requestkey=" + self.key
+
+        if sys.version_info < (3,):
+            key = self.key
+        else:
+            key = self.key.decode('UTF-8')
+        return self.config.server_url + "/cgi-bin/tequila/auth?requestkey=" + key
 
     def get_attributes(self, key = None):
         """ return a dictionnary of attributes setted by tequila,
@@ -68,6 +94,11 @@ class TequilaClient(object):
         response = self._open_url(self.config.server_url + "/cgi-bin/tequila/fetchattributes", params)
         
         attributes = {}
+
+        # Python 3 need to decode
+        if sys.version_info > (3,):
+        	response = response.decode('utf-8')
+
         list_attributes = response.split('\n')
         
         for attribute in list_attributes[:-1]:

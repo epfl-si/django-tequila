@@ -1,5 +1,9 @@
 Change log
 ==========
+2.1.0
+-----
+Python 3 compatibility
+
 2.0.4
 -----
 Django is no more required, only recommended
