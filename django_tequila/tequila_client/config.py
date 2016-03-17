@@ -18,7 +18,7 @@ class Config(object):
         self.server_url = server_url
         
         if redirect_to:
-            if redirect_to.find('http://') == -1 :
+            if redirect_to.find('http://') == -1 and redirect_to.find('https://') == -1:
                 self.redirect_to = 'http://' + redirect_to
             else:
                 self.redirect_to = redirect_to
