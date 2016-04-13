@@ -133,6 +133,10 @@ Advanced settings
   If this is the case, add this line to `settings.py`::
 
 	TEQUILA_CONFIG_ALLOW = 'categorie=shibboleth'
+
+  or, for multiple allow :
+
+	TEQUILA_CONFIG_ALLOW = 'categorie=shibboleth|categorie=epfl-old'
 	
 * You may want to add some custom paramaters with Tequila. 
   If this is the case, add this line to `settings.py`::
