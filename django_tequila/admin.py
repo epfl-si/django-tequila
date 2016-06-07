@@ -3,7 +3,7 @@ try:
     import urlparse
 except ImportError:
     # For python 3
-    from urllib.parse import urlparse, urlunparse
+    from urllib import parse as urlparse
 
 from django.conf import settings
 from django.contrib.admin.sites import AdminSite
