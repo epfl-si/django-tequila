@@ -8,7 +8,12 @@ Requirements
 ============
 
 ``django-tequila`` needs a modern version of Django – something after 1.8.
-See django-tequila 1.9.x for the pre Django 1.6.
+We aim to follow the last LTS, and we try as we can to follow the versions between LTS.
+
+Latest known functioning version : 1.10.
+
+If you use Django pre 1.6, see django-tequila 1.9.x.
+
 This project also expects a fully operational `Tequila <http://tequila.epfl.ch/>`_ server.
 
 Installation
