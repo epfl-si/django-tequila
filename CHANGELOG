@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.1.5
+------
+Moved to Django 1.10
+
 2.1.4
 ------
 Fix wrong import for Python 3

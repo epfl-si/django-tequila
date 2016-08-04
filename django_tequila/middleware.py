@@ -1,10 +1,9 @@
-from django.contrib.auth.middleware import AuthenticationMiddleware, RemoteUserMiddleware
-from django.contrib import auth
-from django.contrib.auth import views
-from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
-from django.http import HttpResponseRedirect, QueryDict
+from django.contrib import auth
+from django.contrib.auth.middleware import PersistentRemoteUserMiddleware
+from django.core.exceptions import ImproperlyConfigured
 
+from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
 
 def get_query_string(params, new_params=None, remove=None):
@@ -30,7 +29,7 @@ def get_query_string(params, new_params=None, remove=None):
     
     return '?%s' % urlencode(p)
 
-class TequilaMiddleware(RemoteUserMiddleware):
+class TequilaMiddleware(PersistentRemoteUserMiddleware):
     """
     Middleware for utilizing tequila web-server-provided authentication.
 
@@ -50,29 +49,33 @@ class TequilaMiddleware(RemoteUserMiddleware):
             raise ImproperlyConfigured(
                 "The Django remote user auth middleware requires the"
                 " authentication middleware to be installed.  Edit your"
-                " MIDDLEWARE_CLASSES setting to insert"
+                " MIDDLEWARE setting to insert"
                 " 'django.contrib.auth.middleware.AuthenticationMiddleware'"
                 " before the TequilaMiddleware class.")
         # If the user is already authenticated, her is already
         # persisted in the session and we don't need to continue.
         if request.user.is_authenticated():
             return
+
         try:
+            # Django diff : key is provided by GET, not META
             tequila_key = request.GET[self.header]
         except KeyError:
-            # If specified header doesn't exist then return (leaving
-            # request.user set to AnonymousUser by the
-            # AuthenticationMiddleware).
+            # If specified header doesn't exist then remove any existing
+            # authenticated remote-user, or return (leaving request.user set to
+            # AnonymousUser by the AuthenticationMiddleware).
+            if self.force_logout_if_no_header and request.user.is_authenticated:
+                self._remove_invalid_user(request)
             return
         
         # We are seeing this user for the first time in this session, attempt
         # to authenticate the user.
         user = auth.authenticate(tequila_key = tequila_key)
-        
-        if not self.is_user_allowed(user):
+
+        # deny page if not allowed
+        if not user:
             return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
-        
-        if user:
+        else:
             # User is valid.  Set request.user and persist user in the session
             # by logging the user in.
             request.user = user
@@ -93,22 +96,3 @@ class TequilaMiddleware(RemoteUserMiddleware):
 
             except AttributeError:
                 pass    
-
-    def is_user_allowed(self, user):
-        """
-        Additional validation
-        """
-        return user.is_active
-
-    def clean_username(self, username, request):
-        """
-        Allows the backend to clean the username, if the backend defines a
-        clean_username method.
-        """
-        backend_str = request.session[auth.BACKEND_SESSION_KEY]
-        backend = auth.load_backend(backend_str)
-        try:
-            username = backend.clean_username(username)
-        except AttributeError: # Backend has no clean_username method.
-            pass
-        return username
