@@ -1,11 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
-try:
-    from django.contrib.sites.models import RequestSite # Django 1.8
-except ImportError:
-    from django.contrib.sites.requests import RequestSite # Django 1.9+
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.cache import never_cache
 from django_tequila.tequila_client import TequilaClient

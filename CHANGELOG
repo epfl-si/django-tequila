@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.1.6
+------
+Remove unused import of RequestSite
+
 2.1.5
 ------
 Moved to Django 1.10
