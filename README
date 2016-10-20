@@ -25,6 +25,9 @@ Configuration
 =============
 
 You can find an django app example in ``./django-tequila/sample_app``
+or run the full setup with ::
+
+    docker-compose up
 
 settings.py
 -----------
