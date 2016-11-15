@@ -122,8 +122,12 @@ class TequilaClient(object):
         
         for attribute in list_attributes[:-1]:
             splitted_attr = attribute.split('=')
+
+            if len(splitted_attr) == 1:
+                splitted_attr.append('')
+
             attributes[splitted_attr[0]] = splitted_attr[1]
-            
+
         if not self._verify_attributes(attributes):
             raise StandardError()
 

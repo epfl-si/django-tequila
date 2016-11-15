@@ -3,6 +3,7 @@ Change log
 2.1.7
 ------
 Added some logs to the Tequila Client lib
+Fix for some tequila return that are not parsed
 
 2.1.6
 ------
