@@ -166,6 +166,18 @@ Advanced settings
 
   Default value is False   
 
+Logging
+-------
+
+Sometimes we struggle to get the aimed result, showing some log may help :
+
+* Add and customize as you need this logger to your settings ::
+
+    'django_tequila': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+
 Login/logout links
 ------------------
 

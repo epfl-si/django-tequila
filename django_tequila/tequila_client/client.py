@@ -1,6 +1,11 @@
-from django.utils.encoding import smart_str
 import urllib
 import sys
+import logging
+import json
+logger = logging.getLogger('django_tequila.client')
+
+from django.utils.encoding import smart_str
+
 
 try:
     # For Python 2
@@ -38,20 +43,27 @@ class TequilaClient(object):
         if data:
             url_values = url_encoding_method(data)
         if url_values:
-            url + "?" + url_values
-            req = Request(url + "?" + url_values + additional_values)
+            final_url = url + "?" + url_values + additional_values
         else:
-            req = Request(url)
+            final_url = url
+
+        req = Request(final_url)
 
         # TODO: try..except HTTPError or URLError
+        logger.debug("Opening url %s..." % final_url)
         response = urlopen(req)
 
         return response.read()
     
     def _get_key(self):
         """ hide urllib2 access """
+        logger.debug("Asking for a key...")
+
         if self.request_key:
+            logger.debug("Key already loaded...")
             return self.request_key
+
+        logger.debug("No key found, fetching a new one...")
         
         if self.config.request:
             list_request = '+'.join(self.config.request)
@@ -67,7 +79,9 @@ class TequilaClient(object):
             params.update(self.config.additional_params)
         
         self.request_key = self._open_url(self.config.server_url + "/cgi-bin/tequila/createrequest", params, "&request=" + list_request)[4:-1]
-        
+
+        logger.debug("Key generated : %s " % self.request_key)
+
         return self.request_key
 
     key = property(_get_key)
@@ -84,6 +98,8 @@ class TequilaClient(object):
         """ return a dictionnary of attributes setted by tequila,
             corresponding with the "request" parameter in config
          """
+        logger.debug("Asking for attributes...")
+
         if key:
             params = {'key' : key}
         elif self.request_key:
@@ -100,6 +116,9 @@ class TequilaClient(object):
         	response = response.decode('utf-8')
 
         list_attributes = response.split('\n')
+
+        logger.debug("Attributes returned by %s : \n%s" % (self.config.server_url,
+                                                         json.dumps(list_attributes, sort_keys=True, indent=4)))
         
         for attribute in list_attributes[:-1]:
             splitted_attr = attribute.split('=')
@@ -107,7 +126,10 @@ class TequilaClient(object):
             
         if not self._verify_attributes(attributes):
             raise StandardError()
-        
+
+        logger.debug("Attributes after formatting and returned: \n%s" % json.dumps(attributes,
+                                                                                 sort_keys=True, indent=4))
+
         return attributes
     
     def _verify_attributes(self, attributes):

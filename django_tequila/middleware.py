@@ -1,3 +1,6 @@
+import logging
+import json
+
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.middleware import PersistentRemoteUserMiddleware
@@ -5,6 +8,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 from django.http import HttpResponseRedirect
 from django.utils.http import urlencode
+
+logger = logging.getLogger('django_tequila.middleware')
 
 def get_query_string(params, new_params=None, remove=None):
     """ Allow to rewrite params from url """
@@ -70,16 +75,23 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         
         # We are seeing this user for the first time in this session, attempt
         # to authenticate the user.
+        logger.debug("First time user found, going for authentication "
+                     "with the key %s..." % tequila_key)
         user = auth.authenticate(tequila_key = tequila_key)
+        logger.debug("User found and logged : %s" % user.__dict__)
+        logger.debug("User profile : %s" % user.profile.__unicode__())
 
         # deny page if not allowed
         if not user:
+            logger.debug("User was not able to be authenticated, "
+                         "redirect to the not allowed page")
             return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
         else:
             # User is valid.  Set request.user and persist user in the session
             # by logging the user in.
             request.user = user
             auth.login(request, user)
+            logger.debug("User found and logged : %s" % user)
 
             try:
                 clean_url = settings.TEQUILA_CLEAN_URL

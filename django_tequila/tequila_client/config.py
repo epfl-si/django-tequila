@@ -40,8 +40,11 @@ class Config(object):
         self.langage = langage or "english"
         self.allows = allows
 
+
 class EPFLConfig(Config):
-    """ More info on https://tequila.epfl.ch/info """
+    """ Specific config currently used @ EPFL
+    More info on config options https://tequila.epfl.ch/info """
+
     def __init__(self, allow_guests = False, *args, **kwargs):
         if not kwargs.get('server_url'):
             kwargs['server_url'] = "https://tequila.epfl.ch"
@@ -68,7 +71,7 @@ class EPFLConfig(Config):
             self.allow_guests()
     
     def allow_guests(self):
-        """ by default, guests are not welcome. """
+        """ Use preventive config, by default, set guests has not allowed """
         if self.allows:
             self.allows += '|categorie=epfl-guests'
         else:
