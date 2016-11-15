@@ -10,3 +10,4 @@
 docs/_build/*
 dist/*
 build/*
+sample_app/database.db
