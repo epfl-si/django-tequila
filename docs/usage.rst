@@ -1,3 +1,3 @@
 Usage
 #####
-.. include:: ../README
+.. include:: ../README.md
