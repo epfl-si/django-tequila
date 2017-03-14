@@ -1,5 +1,5 @@
-`django-tequila <http://kis-doc.epfl.ch/django-tequila/>`_
-==========================================================
+django-tequila
+==============
 
 `Tequila <http://tequila.epfl.ch/>`_ authentication for django.
 
