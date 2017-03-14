@@ -15,7 +15,7 @@ setup(
     url='http://kis-doc.epfl.ch/django-tequila/',
     license="LGPLv3",
     description='A Tequila authentication backend for django',
-    long_description=open('README.md', 'r').read(),
+    long_description=open('README.rst', 'r').read(),
 
     packages = ['django_tequila',
                 'django_tequila.django_backend',
