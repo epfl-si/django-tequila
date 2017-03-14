@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 """sample_app URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:

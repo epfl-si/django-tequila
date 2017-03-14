@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 import urllib
 import sys
 import logging

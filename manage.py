@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 import os
 import sys
 

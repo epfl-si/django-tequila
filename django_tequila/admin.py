@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 try:
     # For python 2
     import urlparse

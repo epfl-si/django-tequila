@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import Context, loader

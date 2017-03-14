@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 from django.contrib.auth.models import User
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
