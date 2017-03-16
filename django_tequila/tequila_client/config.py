@@ -75,7 +75,7 @@ class EPFLConfig(Config):
             self.allow_guests()
     
     def allow_guests(self):
-        """ Use preventive config, by default, set guests has not allowed """
+        """ Use preventive config, by default, set guests as 'not allowed' """
         if self.allows:
             self.allows += '|categorie=epfl-guests'
         else:
