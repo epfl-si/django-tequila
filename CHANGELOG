@@ -1,5 +1,11 @@
 Change log
 ==========
+2.1.9
+------
+Move to Django 1.11
+Update links to doc
+Print more detail for current user in sample_app
+
 2.1.8
 ------
 Added copyright informations

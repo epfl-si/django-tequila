@@ -12,7 +12,7 @@ setup(
     author_email='julien.delasoie at epfl ch',
     keywords='django, tequila, authentication',
 
-    url='http://kis-doc.epfl.ch/django-tequila/',
+    url='https://github.com/epfl-idevelop/django-tequila',
     license="LGPLv3",
     description='A Tequila authentication backend for django',
     long_description=open('README.rst', 'r').read(),

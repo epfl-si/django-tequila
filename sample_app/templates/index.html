@@ -9,9 +9,17 @@
 
 <br />
 <br />
-<div>User info :<br />
-    <ul>
-	   <li>{{ user.first_name }}</li>
-	   <li>Is staff (admin access) ? : {{ user.is_staff }}</li>
-	</ul>
-</div>
+
+User info:
+<br />
+<br />
+
+<table>
+	<tr><td>Is staff (admin access) ?</td><td>{{ user.is_staff }}</td></tr>
+	{% for key, item in user_info.items %}
+	<tr>
+		<td>{{ key }}</td>
+		<td>{{ item }}</td>
+	</tr>
+	{% endfor %}
+</table>
