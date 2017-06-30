@@ -10,7 +10,7 @@ Requirements
 ``django-tequila`` needs a modern version of Django – something after 1.8.
 We aim to follow the last LTS, and we try as we can to follow the versions between LTS.
 
-Latest known functioning version : 1.10.
+Latest known functioning version : 1.11.
 
 If you use Django pre 1.6, see django-tequila 1.9.x.
 

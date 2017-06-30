@@ -9,7 +9,7 @@ setup(
     version=__import__('django_tequila').__version__,
     
     author='Julien Delasoie',
-    author_email='julien.delasoie at epfl ch',
+    author_email='julien.delasoie@epfl.ch',
     keywords='django, tequila, authentication',
 
     url='https://github.com/epfl-idevelop/django-tequila',
