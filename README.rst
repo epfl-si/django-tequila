@@ -79,7 +79,7 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
 	
 	class UserProfile(models.Model):
 	    #required field
-        user = models.OneToOneField(User, related_name="profile")
+            user = models.OneToOneField(User, related_name="profile")
 	    
 	    sciper = models.PositiveIntegerField(null=True, blank=True)
 	    where = models.CharField(max_length=100, null=True, blank=True)
@@ -87,6 +87,22 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
 	    group = models.CharField(max_length=150, null=True, blank=True)
 	    classe = models.CharField(max_length=100, null=True, blank=True)
 	    statut = models.CharField(max_length=100, null=True, blank=True)
+	    
+            def __unicode__(self):
+                return """  Sciper:    %s
+                            where:     %s
+                            units:     %s
+                            group:     %s
+                            classe:    %s
+                            statut:    %s
+                            memberof:  %s
+                        """ % (self.sciper,
+                               self.where,
+                               self.units,
+                               self.group,
+                               self.classe,
+                               self.statut,
+                               self.memberof)	    
 	    
 	# Trigger for creating a profile on user creation 
 	def user_post_save(sender, instance, **kwargs):
