@@ -79,7 +79,7 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
 	
 	class UserProfile(models.Model):
 	    #required field
-            user = models.OneToOneField(User, related_name="profile")
+        user = models.OneToOneField(User, related_name="profile")
 	    
 	    sciper = models.PositiveIntegerField(null=True, blank=True)
 	    where = models.CharField(max_length=100, null=True, blank=True)
