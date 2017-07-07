@@ -7,6 +7,8 @@ class Config(object):
                  server_url,
                  additional_params = None,
                  redirect_to = None,
+                 # if missing redirect_to, take the https path by default
+                 default_redirect_https=False,
                  service = None,
                  request = None,
                  language = None,
@@ -18,12 +20,17 @@ class Config(object):
                  allows = None,
                  strong_authentication = False
                  ):
-        
+
         self.server_url = server_url
         
         if redirect_to:
             if redirect_to.find('http://') == -1 and redirect_to.find('https://') == -1:
-                self.redirect_to = 'http://' + redirect_to
+                if default_redirect_https:
+                    prefix = 'https://'
+                else:
+                    prefix = 'http://'
+
+                self.redirect_to = prefix + redirect_to
             else:
                 self.redirect_to = redirect_to
         else:
@@ -52,6 +59,9 @@ class EPFLConfig(Config):
     def __init__(self, allow_guests = False, *args, **kwargs):
         if not kwargs.get('server_url'):
             kwargs['server_url'] = "https://tequila.epfl.ch"
+
+        if not kwargs.get('default_redirect_https'):
+            kwargs['default_redirect_https'] = True
 
         super(EPFLConfig, self).__init__(*args, **kwargs)
         
