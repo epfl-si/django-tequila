@@ -20,7 +20,7 @@ class Config(object):
                  allows = None,
                  strong_authentication = False
                  ):
-
+        
         self.server_url = server_url
         
         if redirect_to:
