@@ -1,3 +1,7 @@
+'''
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+'''
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
@@ -7,7 +11,9 @@ from django.shortcuts import render
 
 def index(request):
     user_info = request.user.__dict__
-    user_info.update(request.user.profile.__dict__)
+
+    if request.user.is_authenticated:
+        user_info.update(request.user.profile.__dict__)
 
     return render(request, 'index.html', {
         'user' : request.user,
