@@ -56,7 +56,7 @@ def login(request):
     try:
         force_redirect_https = settings.TEQUILA_FORCE_REDIRECT_HTTPS
     except AttributeError:
-        force_redirect_https = True
+        force_redirect_https = False
 
     tequila_client = TequilaClient(EPFLConfig(server_url = server_url,
                                         additional_params = additional_params,
