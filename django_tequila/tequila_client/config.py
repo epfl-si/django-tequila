@@ -7,6 +7,8 @@ class Config(object):
                  server_url,
                  additional_params = None,
                  redirect_to = None,
+                 # should we force https
+                 force_redirect_https=False,
                  service = None,
                  request = None,
                  language = None,
@@ -22,10 +24,15 @@ class Config(object):
         self.server_url = server_url
         
         if redirect_to:
-            if redirect_to.find('http://') == -1 and redirect_to.find('https://') == -1:
-                self.redirect_to = 'http://' + redirect_to
+            if force_redirect_https: # force https in all case
+                if redirect_to.find('http://') == -1 and redirect_to.find('https://') == -1:
+                    prefix = 'https://'
+                    self.redirect_to = prefix + redirect_to
+                else:
+                    self.redirect_to = redirect_to.replace('http:', 'https:')
             else:
                 self.redirect_to = redirect_to
+
         else:
             self.redirect_to = None
             

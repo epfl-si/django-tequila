@@ -22,6 +22,11 @@ def login(request):
     
     # fullfill domain for tequila
     next_path = request.get_host() + next_path
+
+    if request.is_secure():
+        next_path = 'https://' + next_path
+    else:
+        next_path = 'http://' + next_path
     
     try:
         server_url = settings.TEQUILA_SERVER_URL
@@ -46,15 +51,22 @@ def login(request):
     try:
         strong_authentication = settings.TEQUILA_STRONG_AUTHENTICATION
     except AttributeError:
-        strong_authentication = False    
-    
+        strong_authentication = False
+
+    try:
+        force_redirect_https = settings.TEQUILA_FORCE_REDIRECT_HTTPS
+    except AttributeError:
+        force_redirect_https = True
+
     tequila_client = TequilaClient(EPFLConfig(server_url = server_url,
                                         additional_params = additional_params,
                                         redirect_to = next_path,
                                         allows = allows_needed,
                                         service = service_name,
                                         allow_guests = True,
-                                        strong_authentication = strong_authentication))
+                                        strong_authentication = strong_authentication,
+                                        force_redirect_https = force_redirect_https,
+                                        ))
     
     request.session.set_test_cookie()
     

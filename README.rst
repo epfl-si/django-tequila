@@ -180,7 +180,14 @@ Advanced settings
    
     TEQUILA_STRONG_AUTHENTICATION = True
 
-  Default value is False   
+  Default value is False
+
+* You can force a redirect to https, without respecting the origin.
+  so add this line to `settings.py`::
+
+    TEQUILA_FORCE_REDIRECT_HTTPS = True
+
+  Default value is False
 
 Logging
 -------

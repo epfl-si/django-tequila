@@ -1,5 +1,10 @@
 Change log
 ==========
+2.1.10
+------
+Add an option to force https if redirect url is not or half provided
+Force https for EPFL configuration
+
 2.1.9
 ------
 Move to Django 1.11
