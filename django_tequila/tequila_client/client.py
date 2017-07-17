@@ -115,9 +115,8 @@ class TequilaClient(object):
         
         attributes = {}
 
-        # Python 3 need to decode
-        if sys.version_info > (3,):
-        	response = response.decode('utf-8')
+        # force utf-8 as django need it
+        response = response.decode('utf-8')
 
         list_attributes = response.split('\n')
 

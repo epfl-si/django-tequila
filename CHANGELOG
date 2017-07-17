@@ -1,5 +1,13 @@
 Change log
 ==========
+2.1.12
+------
+Force UTF-8 on Tequila reply string
+
+2.1.11
+------
+Fix on force https
+
 2.1.10
 ------
 Add an option to force https if redirect url is not or half provided
