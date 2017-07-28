@@ -82,8 +82,14 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         logger.debug("First time user found, going for authentication "
                      "with the key %s..." % tequila_key)
         user = auth.authenticate(tequila_key = tequila_key)
+
         logger.debug("User found and logged : %s" % user.__dict__)
-        logger.debug("User profile : %s" % user.profile.__unicode__())
+
+        if hasattr(user, 'profile'):
+            logger.debug("User profile : %s" % user.profile.__unicode__())
+        else:
+            logger.debug("The current appplication has no profile model "
+                         "set, returned informations will not be saved")
 
         # deny page if not allowed
         if not user:
