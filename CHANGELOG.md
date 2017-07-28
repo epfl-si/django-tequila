@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 2.1.13
+### Changed
+- a user profile is optional
 
 ## 2.1.12
 ### Changed
