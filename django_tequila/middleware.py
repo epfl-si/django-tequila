@@ -113,7 +113,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                     #QueryDict to dict
                     params = dict(request.GET.iterlists())
                     
-                    cleaned_url += get_query_string(params, remove=self.header)
+                    cleaned_url += get_query_string(params, remove=[self.header])
                     return HttpResponseRedirect(cleaned_url)
 
             except AttributeError:

@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 2.1.14
+### Fixed
+- Accidently removing other parameters in url than the ask one, like 'key'
+
 ## 2.1.13
 ### Changed
 - a user profile is optional
