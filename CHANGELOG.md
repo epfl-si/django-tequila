@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 2.1.15
+### Fixed
+- Check if user.is\_active==True before allowing user to connect
+
 ## 2.1.14
 ### Fixed
 - Accidently removing other parameters in url than the ask one, like 'key'
