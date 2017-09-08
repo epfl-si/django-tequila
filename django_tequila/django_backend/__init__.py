@@ -8,6 +8,7 @@ from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client.config import EPFLConfig
 from django.conf import settings
 
+
 class TequilaBackend(RemoteUserBackend):
     """
     Authenticate against a Tequila server, using the TequilaClient class
@@ -48,20 +49,24 @@ class TequilaBackend(RemoteUserBackend):
         user = None
 
         if self.tequila_server_url:
-            user_attributes = TequilaClient(EPFLConfig(server_url = self.tequila_server_url)).get_attributes(tequila_key)
+            user_attributes = TequilaClient(
+                EPFLConfig(server_url=self.tequila_server_url)).get_attributes(
+                tequila_key)
         else:
-            user_attributes = TequilaClient(EPFLConfig()).get_attributes(tequila_key)
+            user_attributes = TequilaClient(EPFLConfig()).get_attributes(
+                tequila_key)
+
         username = user_attributes['username']
 
-        #keep only the first username, not the user@unit or the multiple users
+        # keep only the first username, not the user@unit or the multiple users
         if username.find(","):
             username = username.split(",")[0]
             if username.find("@"):
                 username = username.split("@")[0]
 
-        # Note that this could be accomplished in one try-except clause, but
-        # instead we use get_or_create when creating unknown users since it has
-        # built-in safeguards for multiple threads.
+        # Note that this could be accomplished in one try-except clause,
+        #  but instead we use get_or_create when creating unknown users since
+        # it has built-in safeguards for multiple threads.
         if self.create_unknown_user:
             user, created = User.objects.get_or_create(username=username)
             if created:
@@ -101,16 +106,20 @@ class TequilaBackend(RemoteUserBackend):
             user.profile.memberof = user_attributes.get('memberof')
             user.profile.save()
         except Exception:
+            # this attribute are not worth generating noise
             pass
         
-        ###
-        #check for create or update field part
+        # check for create or update field part
         if user_attributes['firstname']:
-            # try a manual truncate if necessary, else allow the truncate warning to be raised
-            if len(user_attributes['firstname']) > user._meta.get_field('last_name').max_length and user_attributes['firstname'].find(',') != -1:
-                first_name_formatted = user_attributes['firstname'].split(',')[0]
+            first_name_attribute = user_attributes['firstname']
+            # try a manual truncate if necessary,
+            # else allow the truncate warning to be raised
+            if len(first_name_attribute) > \
+                    user._meta.get_field('last_name').max_length \
+                    and first_name_attribute.find(',') != -1:
+                first_name_formatted = first_name_attribute.split(',')[0]
             else:            
-                first_name_formatted = user_attributes['firstname']
+                first_name_formatted = first_name_attribute
             
             if user.first_name:
                 # need update ?
@@ -118,7 +127,6 @@ class TequilaBackend(RemoteUserBackend):
                     user.first_name = first_name_formatted
             else:
                 user.first_name = first_name_formatted
-        
         if user_attributes['name']:
             if user.last_name:
                 if user.last_name != user_attributes['name']:
