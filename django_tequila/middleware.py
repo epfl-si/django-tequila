@@ -97,10 +97,6 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                          "redirect to the not allowed page")
             return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
         else:
-            if not user.is_active:
-                # Do not allow login if user is inactive
-                # Use flag TEQUILA_NEW_USER_INACTIVE in settings to define default value for is_active
-                return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
             # User is valid.  Set request.user and persist user in the session
             # by logging the user in.
             request.user = user

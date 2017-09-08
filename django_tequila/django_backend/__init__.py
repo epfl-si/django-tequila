@@ -73,10 +73,22 @@ class TequilaBackend(RemoteUserBackend):
                 pass
 
         if user:
+            # updates data in all cases
             self.update_attributes_from_tequila(user, user_attributes)
 
-        return user
-    
+            if self.user_can_authenticate(user):
+                # all good !
+                return user
+
+    def user_can_authenticate(self, user):
+        """
+        Reject users with is_active=False. Custom user models that don't have
+        that attribute are allowed.
+        """
+        is_active = getattr(user, 'is_active', None)
+
+        return is_active or is_active is None
+
     def update_attributes_from_tequila(self, user, user_attributes):
         """ Fill the user profile with tequila attributes """
         try:
