@@ -86,7 +86,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         logger.debug("User found and logged : %s" % user.__dict__)
 
         if hasattr(user, 'profile'):
-            logger.debug("User profile : %s" % user.profile)
+            logger.debug("User profile : %s" % user.profile.__dict__)
         else:
             logger.debug("The current appplication has no profile model "
                          "set, returned informations will not be saved")
