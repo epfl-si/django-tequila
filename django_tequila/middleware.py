@@ -15,6 +15,7 @@ from django.utils.http import urlencode
 
 logger = logging.getLogger('django_tequila.middleware')
 
+
 def get_query_string(params, new_params=None, remove=None):
     """ Allow to rewrite params from url """
     if new_params is None: new_params = {}
@@ -38,6 +39,7 @@ def get_query_string(params, new_params=None, remove=None):
 
     return '?%s' % urlencode(p)
 
+
 class TequilaMiddleware(PersistentRemoteUserMiddleware):
     """
     Middleware for utilizing tequila web-server-provided authentication.
@@ -54,7 +56,6 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
     def process_request(self, request):
         # AuthenticationMiddleware is required so that request.user exists.
         if not hasattr(request, 'user'):
-            return
             raise ImproperlyConfigured(
                 "The Django remote user auth middleware requires the"
                 " authentication middleware to be installed.  Edit your"
@@ -86,7 +87,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         logger.debug("User found and logged : %s" % user.__dict__)
 
         if hasattr(user, 'profile'):
-            logger.debug("User profile : %s" % user.profile.__unicode__())
+            logger.debug("User profile : %s" % user.profile.__dict__)
         else:
             logger.debug("The current appplication has no profile model "
                          "set, returned informations will not be saved")
@@ -97,10 +98,6 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                          "redirect to the not allowed page")
             return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
         else:
-            if not user.is_active:
-                # Do not allow login if user is inactive
-                # Use flag TEQUILA_NEW_USER_INACTIVE in settings to define default value for is_active
-                return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
             # User is valid.  Set request.user and persist user in the session
             # by logging the user in.
             request.user = user
@@ -111,10 +108,10 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                 clean_url = settings.TEQUILA_CLEAN_URL
 
                 if clean_url:
-                    #get the url, remove key and redirect to it
+                    # get the url, remove key and redirect to it
                     cleaned_url = request.path
 
-                    #QueryDict to dict
+                    # QueryDict to dict
                     params = dict(request.GET.iterlists())
 
                     cleaned_url += get_query_string(params, remove=[self.header])
