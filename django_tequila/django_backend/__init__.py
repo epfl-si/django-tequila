@@ -3,10 +3,13 @@
 '''
 
 from django.contrib.auth.backends import RemoteUserBackend
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client.config import EPFLConfig
 from django.conf import settings
+
+
+User = get_user_model()
 
 
 class TequilaBackend(RemoteUserBackend):
@@ -22,19 +25,19 @@ class TequilaBackend(RemoteUserBackend):
     ``False``.
     """
     create_unknown_user = True
-    
+
     """ Created user should be inactive by default ?"""
     try:
         set_created_user_at_inactive = settings.TEQUILA_NEW_USER_INACTIVE
     except AttributeError:
         set_created_user_at_inactive = False
-    
+
     """ Set server url"""
     try:
         tequila_server_url = settings.TEQUILA_SERVER_URL
     except AttributeError:
-        tequila_server_url = "" 
-    
+        tequila_server_url = ""
+
     def authenticate(self, tequila_key):
         """
         The username passed as ``remote_user`` is considered trusted.  This
@@ -108,7 +111,7 @@ class TequilaBackend(RemoteUserBackend):
         except Exception:
             # this attribute are not worth generating noise
             pass
-        
+
         # check for create or update field part
         if user_attributes['firstname']:
             first_name_attribute = user_attributes['firstname']
@@ -118,9 +121,9 @@ class TequilaBackend(RemoteUserBackend):
                     user._meta.get_field('last_name').max_length \
                     and first_name_attribute.find(',') != -1:
                 first_name_formatted = first_name_attribute.split(',')[0]
-            else:            
+            else:
                 first_name_formatted = first_name_attribute
-            
+
             if user.first_name:
                 # need update ?
                 if user.first_name != first_name_formatted:
@@ -133,16 +136,16 @@ class TequilaBackend(RemoteUserBackend):
                     user.last_name = user_attributes['name']
             else:
                 user.last_name = user_attributes['name']
-        
+
         if user_attributes['email']:
             if user.email:
                 if user.email != user_attributes['email']:
                     user.email = user_attributes['email']
             else:
                 user.email = user_attributes['email']
-            
+
         user.save()
-        
+
     def configure_user(self, user):
         """
         Configures a user after creation and returns the updated user.
