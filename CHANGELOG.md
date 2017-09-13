@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- Use get_user_model to get the User (thanks llann)
+- Remove LICENSE file, as 2.1.8 added copyright in source. The license should be more permissive now.
+
+### Fixed
+- Some PEP8 formatting for *.py files
+
 ## 2.1.15
 ### Fixed
 - Check if user.is\_active==True before allowing user to connect
