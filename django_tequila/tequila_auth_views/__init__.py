@@ -75,7 +75,10 @@ def login(request):
     request.session.set_test_cookie()
 
     return HttpResponseRedirect(tequila_client.login_url())
+
+
 login = never_cache(login)
+
 
 def logout(request):
     if request.GET.get(REDIRECT_FIELD_NAME):
@@ -87,6 +90,7 @@ def logout(request):
     auth_logout(request)
 
     return HttpResponseRedirect(next_path)
+
 
 def not_allowed(request):
     return HttpResponse("Not allowed")

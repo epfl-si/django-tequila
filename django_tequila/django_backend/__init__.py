@@ -71,12 +71,16 @@ class TequilaBackend(RemoteUserBackend):
         #  but instead we use get_or_create when creating unknown users since
         # it has built-in safeguards for multiple threads.
         if self.create_unknown_user:
-            user, created = User.objects.get_or_create(username=username)
+            user, created = User.objects.get_or_create(**{
+                User.USERNAME_FIELD: username
+            })
             if created:
                 user = self.configure_user(user)
         else:
             try:
-                user = User.objects.get(username=username)
+                user = User.objects.get(**{
+                    User.USERNAME_FIELD: username
+                })
             except User.DoesNotExist:
                 pass
 
