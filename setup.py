@@ -7,7 +7,7 @@ from setuptools import setup
 setup(
     name='django-tequila',
     version=__import__('django_tequila').__version__,
-    
+
     author='Julien Delasoie',
     author_email='julien.delasoie@epfl.ch',
     keywords='django, tequila, authentication',
@@ -17,10 +17,10 @@ setup(
     description='A Tequila authentication backend for django',
     long_description=open('README.rst', 'r').read(),
 
-    packages = ['django_tequila',
-                'django_tequila.django_backend',
-                'django_tequila.tequila_client',
-                'django_tequila.tequila_auth_views'],
+    packages=['django_tequila',
+              'django_tequila.django_backend',
+              'django_tequila.tequila_client',
+              'django_tequila.tequila_auth_views'],
 
     classifiers=[
         'Programming Language :: Python',

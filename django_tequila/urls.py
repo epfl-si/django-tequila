@@ -3,6 +3,7 @@
 """
 
 from django.conf.urls import url
+
 from django_tequila.tequila_auth_views import login, logout, not_allowed
 
 urlpatterns = [

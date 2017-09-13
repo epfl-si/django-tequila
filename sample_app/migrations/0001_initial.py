@@ -7,13 +7,12 @@
 
 from __future__ import unicode_literals
 
+import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -24,15 +23,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UserProfile',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sciper', models.CharField(blank=True, max_length=100, null=True)),
-                ('where', models.CharField(blank=True, max_length=100, null=True)),
-                ('units', models.CharField(blank=True, max_length=300, null=True)),
-                ('group', models.CharField(blank=True, max_length=150, null=True)),
-                ('classe', models.CharField(blank=True, max_length=100, null=True)),
-                ('statut', models.CharField(blank=True, max_length=100, null=True)),
-                ('memberof', models.CharField(blank=True, max_length=300, null=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('sciper',
+                 models.CharField(blank=True, max_length=100, null=True)),
+                ('where',
+                 models.CharField(blank=True, max_length=100, null=True)),
+                ('units',
+                 models.CharField(blank=True, max_length=300, null=True)),
+                ('group',
+                 models.CharField(blank=True, max_length=150, null=True)),
+                ('classe',
+                 models.CharField(blank=True, max_length=100, null=True)),
+                ('statut',
+                 models.CharField(blank=True, max_length=100, null=True)),
+                ('memberof',
+                 models.CharField(blank=True, max_length=300, null=True)),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
