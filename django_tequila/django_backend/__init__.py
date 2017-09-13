@@ -59,7 +59,8 @@ class TequilaBackend(RemoteUserBackend):
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(
                 tequila_key)
 
-        username = user_attributes['username']
+        # Give de possibility to choose a cusom value for the local username field
+        username = user_attributes[getattr(settings, 'TEQUILA_EPFL_USER_ATTRIBUT_FOR_USERNAME', 'username')]
 
         # keep only the first username, not the user@unit or the multiple users
         if username.find(","):
