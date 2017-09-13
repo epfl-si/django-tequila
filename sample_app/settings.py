@@ -1,6 +1,6 @@
-'''
+"""
     (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
-'''
+"""
 
 """
 Django settings for sample_app project.
