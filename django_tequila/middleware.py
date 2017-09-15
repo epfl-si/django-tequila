@@ -22,7 +22,7 @@ def get_query_string(params, new_params=None, remove=None):
     if remove is None: remove = []
     p = params.copy()
     for r in remove:
-        for k in p.keys():
+        for k in list(p.keys()):
             if k.startswith(r):
                 del p[k]
 
@@ -112,7 +112,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                     cleaned_url = request.path
 
                     # QueryDict to dict
-                    params = dict(request.GET.iterlists())
+                    params = dict(request.GET)
 
                     cleaned_url += get_query_string(params, remove=[self.header])
                     return HttpResponseRedirect(cleaned_url)
