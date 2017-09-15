@@ -1,6 +1,6 @@
-'''
+"""
     (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
-'''
+"""
 
 import logging
 
@@ -113,7 +113,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                     cleaned_url = request.path
 
                     # QueryDict to dict
-                    params = dict(request.GET)
+                    params = request.GET.dict()
 
                     cleaned_url += get_query_string(params, remove=[self.header])
                     return HttpResponseRedirect(cleaned_url)

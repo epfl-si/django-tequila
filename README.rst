@@ -10,7 +10,7 @@ Requirements
 ``django-tequila`` needs a modern version of Django – something after 1.8.
 We aim to follow the last LTS, and we try as we can to follow the versions between LTS.
 
-Latest known functioning version : 1.11.
+Latest known functioning version : 1.12.
 
 If you use Django pre 1.6, see django-tequila 1.9.x.
 
@@ -192,7 +192,7 @@ Advanced settings
 * You may want to use a custom username value as for exemple the SCIPER.
   If this is the case, add this line to `settings.py`::
 
-    EPFL_USER_ATTRIBUT_FOR_USERNAME = 'uniqueid'
+    TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = 'uniqueid'
 
   Ex. : uniqueid, email, etc.
 
