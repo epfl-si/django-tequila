@@ -1,6 +1,6 @@
-'''
+"""
     (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
-'''
+"""
 
 from django.contrib.auth.backends import RemoteUserBackend
 from django.contrib.auth import get_user_model
@@ -60,7 +60,10 @@ class TequilaBackend(RemoteUserBackend):
                 tequila_key)
 
         # Give de possibility to choose a cusom value for the local username field
-        username = user_attributes[getattr(settings, 'TEQUILA_EPFL_USER_ATTRIBUT_FOR_USERNAME', 'username')]
+        custom_username_field = getattr(settings,
+                                        'TEQUILA_CUSTOM_USERNAME_ATTRIBUTE',
+                                        'username')
+        username = user_attributes[custom_username_field]
 
         # keep only the first username, not the user@unit or the multiple users
         if username.find(","):
@@ -69,7 +72,7 @@ class TequilaBackend(RemoteUserBackend):
                 username = username.split("@")[0]
 
         # Note that this could be accomplished in one try-except clause,
-        #  but instead we use get_or_create when creating unknown users since
+        # but instead we use get_or_create when creating unknown users since
         # it has built-in safeguards for multiple threads.
         if self.create_unknown_user:
             user, created = User.objects.get_or_create(**{
