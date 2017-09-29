@@ -4,10 +4,10 @@ from __future__ import unicode_literals
 from django.test import TestCase
 
 # Create your tests here.
-class DumpTestCase(TestCase):
+class DumbTestCase(TestCase):
     def setUp(self):
         pass
 
     def test_true(self):
-        """Animals that can speak are correctly identified"""
+        """ Test to see if the test suite works"""
         self.assertTrue(True)
