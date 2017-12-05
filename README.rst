@@ -182,13 +182,6 @@ Advanced settings
 
   Default value is False
 
-* You can force a redirect to https, without respecting the origin.
-  so add this line to `settings.py`::
-
-    TEQUILA_FORCE_REDIRECT_HTTPS = True
-
-  Default value is False
-
 * You may want to use a custom username value as for exemple the SCIPER.
   If this is the case, add this line to `settings.py`::
 

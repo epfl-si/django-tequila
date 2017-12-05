@@ -57,11 +57,6 @@ def login(request):
     except AttributeError:
         strong_authentication = False
 
-    try:
-        force_redirect_https = settings.TEQUILA_FORCE_REDIRECT_HTTPS
-    except AttributeError:
-        force_redirect_https = False
-
     tequila_client = TequilaClient(EPFLConfig(server_url = server_url,
                                         additional_params = additional_params,
                                         redirect_to = next_path,
@@ -69,7 +64,6 @@ def login(request):
                                         service = service_name,
                                         allow_guests = True,
                                         strong_authentication = strong_authentication,
-                                        force_redirect_https = force_redirect_https,
                                         ))
 
     request.session.set_test_cookie()

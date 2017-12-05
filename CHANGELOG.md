@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Use get_user_model to get the User (thanks llann)
 - Remove LICENSE file, as 2.1.8 added copyright in source. The license should be more permissive now.
+- Removing the 2.1.10 change that allow the force https redirect, as Tequila will do it by default.
 
 ### Fixed
 - Some PEP8 formatting for *.py files
