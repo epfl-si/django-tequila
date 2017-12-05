@@ -3,7 +3,6 @@
 """
 
 import logging
-import json
 
 from django.conf import settings
 from django.contrib import auth
@@ -18,8 +17,10 @@ logger = logging.getLogger('django_tequila.middleware')
 
 def get_query_string(params, new_params=None, remove=None):
     """ Allow to rewrite params from url """
-    if new_params is None: new_params = {}
-    if remove is None: remove = []
+    if new_params is None:
+        new_params = {}
+    if remove is None:
+        remove = []
     p = params.copy()
     for r in remove:
         for k in list(p.keys()):
@@ -34,7 +35,7 @@ def get_query_string(params, new_params=None, remove=None):
             p[k] = v
 
     for k, v in p.items():
-        if isinstance(v, (list,tuple)):
+        if isinstance(v, (list, tuple)):
             p[k] = v[0]
 
     return '?%s' % urlencode(p)
@@ -82,7 +83,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         # to authenticate the user.
         logger.debug("First time user found, going for authentication "
                      "with the key %s..." % tequila_key)
-        user = auth.authenticate(tequila_key = tequila_key)
+        user = auth.authenticate(tequila_key=tequila_key)
 
         logger.debug("User found and logged : %s" % user.__dict__)
 
@@ -112,7 +113,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                     cleaned_url = request.path
 
                     # QueryDict to dict
-                    params = dict(request.GET)
+                    params = request.GET.dict()
 
                     cleaned_url += get_query_string(params, remove=[self.header])
                     return HttpResponseRedirect(cleaned_url)

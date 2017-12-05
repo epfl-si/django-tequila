@@ -20,7 +20,7 @@ Installation
 ============
 
     pip install django-tequila
-	
+
 Configuration
 =============
 
@@ -41,27 +41,27 @@ settings.py
 	'django_tequila',
 
 * Add the line::
-	
+
 	AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 
 * Set a name that will be displayed on the tequila login page::
-	
+
 	TEQUILA_SERVICE_NAME = "django_tequila_service"
-	
+
 * Finally, add::
 
-	LOGIN_URL = "/login"
-	LOGIN_REDIRECT_URL = "/"
-	LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
+    LOGIN_URL = "/login"
+    LOGIN_REDIRECT_URL = "/"
+    LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
     LOGOUT_URL = '/'
 
 urls.py
 -------
 
 * Add these lines::
-	
+
 	from django_tequila.urls import urlpatterns as django_tequila_urlpatterns
-	
+
 	urlpatterns += django_tequila_urlpatterns
 
 
@@ -76,18 +76,18 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
 
 	from django.contrib.auth.models import User
 	from django.db import models
-	
+
 	class UserProfile(models.Model):
 	    #required field
         user = models.OneToOneField(User, related_name="profile")
-	    
+
 	    sciper = models.PositiveIntegerField(null=True, blank=True)
 	    where = models.CharField(max_length=100, null=True, blank=True)
 	    units = models.CharField(max_length=300, null=True, blank=True)
 	    group = models.CharField(max_length=150, null=True, blank=True)
 	    classe = models.CharField(max_length=100, null=True, blank=True)
 	    statut = models.CharField(max_length=100, null=True, blank=True)
-	    
+
             def __unicode__(self):
                 return """  Sciper:    %s
                             where:     %s
@@ -102,21 +102,21 @@ Here is an example for a profile for Django 1.1+. With Django 1.5+, you may advi
                                self.group,
                                self.classe,
                                self.statut,
-                               self.memberof)	    
-	    
-	# Trigger for creating a profile on user creation 
+                               self.memberof)
+
+	# Trigger for creating a profile on user creation
 	def user_post_save(sender, instance, **kwargs):
 	    profile, new = UserProfile.objects.get_or_create(user=instance)
-	
+
 	# Register the trigger
 	models.signals.post_save.connect(user_post_save, sender=User)
 
 * in your `settings.py`, tell django to use your model::
 
 	AUTH_PROFILE_MODULE = "my_app.userprofile"
-	
+
 * Update your database::
-	
+
 	./manage.py syncdb
 
 Site Admin customizations
@@ -131,7 +131,7 @@ then follow these steps :
     admin.autodiscover()
     admin.site.__class__ = TequilaAdminSite
 
-* Please note that your username should identical to the one you use to login in Tequila. 
+* Please note that your username should identical to the one you use to login in Tequila.
   If you do not have any user at the moment, or you want to edit some of them,
   create a superuser with this command (replace <USERNAME> and <EMAIL> with you Tequila username and email)::
 
@@ -148,12 +148,12 @@ Advanced settings
 
 	TEQUILA_SERVER_URL = "https://tequila.epfl.ch"
 
-* You may want to create an inactive user when someone try to connect to your app. So you can manually control who access it. 
+* You may want to create an inactive user when someone try to connect to your app. So you can manually control who access it.
   If this is the case, add this line to `settings.py`::
 
 	TEQUILA_NEW_USER_INACTIVE = True
-	
-* You may want to add some custom allow with Tequila. 
+
+* You may want to add some custom allow with Tequila.
   If this is the case, add this line to `settings.py`::
 
 	TEQUILA_CONFIG_ALLOW = 'categorie=shibboleth'
@@ -161,23 +161,23 @@ Advanced settings
   or, for multiple allow :
 
 	TEQUILA_CONFIG_ALLOW = 'categorie=shibboleth|categorie=epfl-old'
-	
-* You may want to add some custom paramaters with Tequila. 
+
+* You may want to add some custom paramaters with Tequila.
   If this is the case, add this line to `settings.py`::
-	
+
 	TEQUILA_CONFIG_ADDITIONAL = {'allowedorgs': 'EPFL, UNIL'}
 
 * Everytime the user connect trought the Tequila process, he is redirected to an url
   that has a 'key' paramter. For some esthetic reasons,you may want to remove this parameter,
   so add this line to `settings.py`::
-   
+
     TEQUILA_CLEAN_URL = True
 
-  As it creates a redirect to the cleaned address and add an additional page hit, The value by default is False 
+  As it creates a redirect to the cleaned address and add an additional page hit, The value by default is False
 
 * You can force a strong authentication
   so add this line to `settings.py`::
-   
+
     TEQUILA_STRONG_AUTHENTICATION = True
 
   Default value is False
@@ -188,6 +188,15 @@ Advanced settings
     TEQUILA_FORCE_REDIRECT_HTTPS = True
 
   Default value is False
+
+* You may want to use a custom username value as for exemple the SCIPER.
+  If this is the case, add this line to `settings.py`::
+
+    TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = 'uniqueid'
+
+  Ex. : uniqueid, email, etc.
+
+  Default value is username
 
 Logging
 -------

@@ -59,7 +59,11 @@ class TequilaBackend(RemoteUserBackend):
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(
                 tequila_key)
 
-        username = user_attributes['username']
+        # Give de possibility to choose a cusom value for the local username field
+        custom_username_field = getattr(settings,
+                                        'TEQUILA_CUSTOM_USERNAME_ATTRIBUTE',
+                                        'username')
+        username = user_attributes[custom_username_field]
 
         # keep only the first username, not the user@unit or the multiple users
         if username.find(","):
@@ -68,15 +72,19 @@ class TequilaBackend(RemoteUserBackend):
                 username = username.split("@")[0]
 
         # Note that this could be accomplished in one try-except clause,
-        #  but instead we use get_or_create when creating unknown users since
+        # but instead we use get_or_create when creating unknown users since
         # it has built-in safeguards for multiple threads.
         if self.create_unknown_user:
-            user, created = User.objects.get_or_create(username=username)
+            user, created = User.objects.get_or_create(**{
+                User.USERNAME_FIELD: username
+            })
             if created:
                 user = self.configure_user(user)
         else:
             try:
-                user = User.objects.get(username=username)
+                user = User.objects.get(**{
+                    User.USERNAME_FIELD: username
+                })
             except User.DoesNotExist:
                 pass
 
