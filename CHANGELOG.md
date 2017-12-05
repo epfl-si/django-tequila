@@ -2,9 +2,6 @@
 All notable changes to this project will be documented in this file.
 
 
-## [Todo]
-
-
 ## [Unreleased]
 ### Added
 - Allow to get a different attribute for username value
@@ -17,13 +14,6 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Some PEP8 formatting for *.py files
 - Django 1.11.x and python 3 compatibilities
-
-### Changed
-- Use get_user_model to get the User (thanks llann)
-- Remove LICENSE file, as 2.1.8 added copyright in source. The license should be more permissive now.
-
-### Fixed
-- Some PEP8 formatting for *.py files
 
 ## 2.1.15
 ### Fixed
