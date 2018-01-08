@@ -87,4 +87,8 @@ def logout(request):
 
 
 def not_allowed(request):
-    return HttpResponse("Not allowed")
+    try :
+        not_allow_text = settings.TEQUILA_NOT_ALLOWED_TEXT
+    except AttributeError :
+        not_allow_text = "Not allowed"
+    return HttpResponse(not_allow_text)

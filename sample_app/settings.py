@@ -115,6 +115,7 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
 LOGOUT_URL = "/"
+TEQUILA_NOT_ALLOWED_TEXT = "Not allowed : please contact your admin"
 
 LOGGING = {
     'version': 1,
