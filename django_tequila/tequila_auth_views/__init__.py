@@ -21,11 +21,11 @@ def login(request):
     else:
         next_path = settings.LOGIN_REDIRECT_URL
 
+    # fullfill domain for tequila, and for security reasons
+    next_path = request.get_host() + next_path
+
     if request.user.is_authenticated():
         return HttpResponseRedirect(next_path)
-
-    # fullfill domain for tequila
-    next_path = request.get_host() + next_path
 
     if request.is_secure():
         next_path = 'https://' + next_path
