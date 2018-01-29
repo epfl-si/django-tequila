@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.1.17
+### Fix
+- Bump version for Pypi
 
 ## 2.1.16
 ### Added
