@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [Unreleased]
+## 2.1.16
 ### Added
 - Allow to get a different attribute for username value
 
@@ -12,12 +12,9 @@ All notable changes to this project will be documented in this file.
 - Removing the 2.1.10 change that allow the force https redirect, as Tequila will do it by default.
 
 ### Fixed
-- Some PEP8 formatting for *.py files
+- Securtiy fix : Disallow a redirect to a different site than the origin
 - Django 1.11.x and python 3 compatibilities
-
-## 2.1.16
-### Fixed
-- Disallow a redirect to a different site than the origin
+- Some PEP8 formatting for *.py files
 
 ## 2.1.15
 ### Fixed
