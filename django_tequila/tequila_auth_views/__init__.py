@@ -24,13 +24,13 @@ def login(request):
     # fullfill domain for tequila, and for security reasons
     next_path = request.get_host() + next_path
 
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(next_path)
-
     if request.is_secure():
         next_path = 'https://' + next_path
     else:
         next_path = 'http://' + next_path
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(next_path)
 
     try:
         server_url = settings.TEQUILA_SERVER_URL
