@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file.
 - Some PEP8 formatting for *.py files
 - Django 1.11.x and python 3 compatibilities
 
+## 2.1.16
+### Fixed
+- Disallow a redirect to a different site than the origin
+
 ## 2.1.15
 ### Fixed
 - Check if user.is\_active==True before allowing user to connect
