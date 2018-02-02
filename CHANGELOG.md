@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+ ## [Unreleased]
+ ### Fix
+ - Django authentication backend may not return any user
+
 ## 2.1.17
 ### Fix
 - Bump version for Pypi

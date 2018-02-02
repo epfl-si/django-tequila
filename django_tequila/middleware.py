@@ -85,25 +85,27 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                      "with the key %s..." % tequila_key)
         user = auth.authenticate(tequila_key=tequila_key)
 
-        logger.debug("User found and logged : %s" % user.__dict__)
-
-        if hasattr(user, 'profile'):
-            logger.debug("User profile : %s" % user.profile.__dict__)
-        else:
-            logger.debug("The current appplication has no profile model "
-                         "set, returned informations will not be saved")
-
         # deny page if not allowed
         if not user:
-            logger.debug("User was not able to be authenticated, "
-                         "redirect to the not allowed page")
+            logger.debug("Unable to process trough authentication. "
+                         "Is the user active and/or the tequila server up ? "
+                         "Anyway, redirect to the 'not_allowed' page")
             return HttpResponseRedirect(settings.LOGIN_REDIRECT_IF_NOT_ALLOWED)
         else:
+            logger.debug("User found on Tequila %s, "
+                         "we may process to Django login " % user.__dict__)
+
+            if hasattr(user, 'profile'):
+                logger.debug("Current user profile : %s" % user.profile.__dict__)
+            else:
+                logger.debug("The current appplication has no profile model "
+                             "set, returned informations will not be saved")
+
             # User is valid.  Set request.user and persist user in the session
             # by logging the user in.
             request.user = user
             auth.login(request, user)
-            logger.debug("User found and logged : %s" % user)
+            logger.debug("User logged : %s" % user.__dict__)
 
             try:
                 clean_url = settings.TEQUILA_CLEAN_URL
