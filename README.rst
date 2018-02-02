@@ -46,12 +46,13 @@ settings.py
 
 	TEQUILA_SERVICE_NAME = "django_tequila_service"
 
-* Finally, add::
+* Finally, add / customize login/logout workflow ::
 
     LOGIN_URL = "/login"
     LOGIN_REDIRECT_URL = "/"
-    LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
     LOGOUT_URL = '/'
+    LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
+    LOGIN_REDIRECT_TEXT_IF_NOT_ALLOWED  = "Not allowed"
 
 urls.py
 -------
