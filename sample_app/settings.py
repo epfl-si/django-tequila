@@ -113,8 +113,9 @@ TEQUILA_CLEAN_URL = True
 TEQUILA_STRONG_AUTHENTICATION = False
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
-LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
 LOGOUT_URL = "/"
+LOGIN_REDIRECT_IF_NOT_ALLOWED = "/not_allowed"
+LOGIN_REDIRECT_TEXT_IF_NOT_ALLOWED = "Not allowed : please contact your admin"
 
 LOGGING = {
     'version': 1,

@@ -87,4 +87,8 @@ def logout(request):
 
 
 def not_allowed(request):
-    return HttpResponse("Not allowed")
+    try :
+        not_allowed_text = settings.LOGIN_REDIRECT_TEXT_IF_NOT_ALLOWED
+    except AttributeError :
+        not_allowed_text = "Not allowed"
+    return HttpResponse(not_allowed_text)
