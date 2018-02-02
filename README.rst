@@ -12,8 +12,6 @@ We aim to follow the last LTS, and we try as we can to follow the versions betwe
 
 Latest known functioning version : 1.11.
 
-If you use Django pre 1.6, see django-tequila 1.9.x.
-
 This project also expects a fully operational `Tequila <http://tequila.epfl.ch/>`_ server.
 
 Installation
