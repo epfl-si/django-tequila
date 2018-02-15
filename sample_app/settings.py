@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'sslserver',
     'django_tequila',
     'sample_app',
 ]
@@ -105,7 +106,9 @@ STATIC_URL = '/static/'
 
 # Django-tequila specifics
 
+AUTH_USER_MODEL = 'sample_app.User'
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
+
 TEQUILA_SERVICE_NAME = "django_tequila_service"
 TEQUILA_SERVER_URL = "https://tequila.epfl.ch"
 TEQUILA_NEW_USER_INACTIVE = False

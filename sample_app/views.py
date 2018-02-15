@@ -3,7 +3,7 @@
 """
 
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
@@ -13,7 +13,7 @@ def index(request):
     user_info = request.user.__dict__
 
     if request.user.is_authenticated:
-        user_info.update(request.user.profile.__dict__)
+        user_info.update(request.user.__dict__)
 
     return render(request, 'index.html', {
         'user': request.user,
@@ -23,11 +23,6 @@ def index(request):
 
 @login_required
 def protected_view(request):
-    profile = ""
-
-    if request.user.is_authenticated():
-        profile = request.user.profile
-
     return HttpResponse("Successfully seeing a protected view.")
 
 

@@ -32,7 +32,7 @@ def login(request):
     else:
         next_path = 'http://' + next_path
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(next_path)
 
     try:

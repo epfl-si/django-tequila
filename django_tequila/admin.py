@@ -26,7 +26,7 @@ class TequilaAdminSite(AdminSite):
         """
 
         def inner(request, *args, **kwargs):
-            if not request.user.is_authenticated():
+            if not request.user.is_authenticated:
                 return self.login(request)
             if not self.has_permission(request):
                 return self.not_allowed_redirect(request)

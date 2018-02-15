@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+### Change
+- Compatible with Django 2. Meaning it will work only on a django>1.10
+- Update the sample_app to reflect this evolution
+
+### Fix
+- Sample_app work with SSL
+
 ## 2.1.18
 ### Fix
 - Django authentication backend may not return any user

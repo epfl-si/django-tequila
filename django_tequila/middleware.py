@@ -65,7 +65,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                 " before the TequilaMiddleware class.")
         # If the user is already authenticated, her is already
         # persisted in the session and we don't need to continue.
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return
 
         try:
