@@ -1,5 +1,5 @@
 """
-    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2018
 """
 
 from django.contrib.auth import get_user_model
@@ -22,7 +22,10 @@ def login(request):
         next_path = settings.LOGIN_REDIRECT_URL
 
     # fullfill domain for tequila, and for security reasons
-    next_path = request.get_host() + next_path
+    if next_path and next_path[0] == '/':
+        next_path = next_path[1:]
+
+    next_path = request.get_host() + '/' + next_path
 
     if request.is_secure():
         next_path = 'https://' + next_path

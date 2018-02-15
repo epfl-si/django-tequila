@@ -1,9 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
- ## [Unreleased]
- ### Fix
- - Django authentication backend may not return any user
+## 2.1.18
+### Fix
+- Django authentication backend may not return any user
+- Security fix : Force redirect url to have a slash
 
 ## 2.1.17
 ### Fix
@@ -19,7 +20,7 @@ All notable changes to this project will be documented in this file.
 - Removing the 2.1.10 change that allow the force https redirect, as Tequila will do it by default.
 
 ### Fixed
-- Securtiy fix : Disallow a redirect to a different site than the origin
+- Security fix : Disallow a redirect to a different site than the origin
 - Django 1.11.x and python 3 compatibilities
 - Some PEP8 formatting for *.py files
 
