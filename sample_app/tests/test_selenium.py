@@ -1,4 +1,5 @@
 import socket
+import urllib
 
 from django.conf import settings
 from django.urls import reverse
@@ -6,6 +7,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
@@ -54,3 +56,15 @@ class SeleniumStaticLiveServerTestCase(StaticLiveServerTestCase):
                                     reverse('index')))
 
         self.assertTrue("AnonymousUser" in self.selenium.page_source, self.selenium.page_source)
+
+    def test_user_allowed_to_access_a_protected_page(self):
+        self.selenium.get('%s%s' % (self.live_server_url,
+                                    reverse('unprotected')))
+
+    def test_user_redirected_when_not_allowed(self):
+        self.selenium.get('%s%s' % (self.live_server_url,
+                                    reverse('protected')))
+
+        WebDriverWait(self.selenium, 10).until(
+            self.assertTrue("/login" in self.selenium.current_url)
+        )

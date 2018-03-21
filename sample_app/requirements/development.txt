@@ -4,5 +4,6 @@ pytest==3.2.2
 pytest-cov==2.5.1
 pytest-django==3.1.2
 mock==2.0.0
+pytest-mock==1.7.1
 selenium==3.11.0
 django-sslserver # don't use in prod !
