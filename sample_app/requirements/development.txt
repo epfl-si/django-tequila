@@ -1,7 +1,8 @@
 -r base.txt
 flake8==3.4.1
-tox==2.8.2
 pytest==3.2.2
 pytest-cov==2.5.1
 pytest-django==3.1.2
 mock==2.0.0
+selenium==3.11.0
+django-sslserver # don't use in prod !

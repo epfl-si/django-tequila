@@ -1,4 +1,3 @@
 # Testing
 
-1. Install tox (``pip install tox``)
-2. Run ``tox``
+A simple `make test` should do it

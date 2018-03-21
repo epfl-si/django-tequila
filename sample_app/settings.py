@@ -145,3 +145,5 @@ LOGGING = {
         },
     },
 }
+
+REMOTE_SELENIUM_SERVER = 'http://selenium:4444/wd/hub'

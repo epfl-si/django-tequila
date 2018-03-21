@@ -1,2 +1,0 @@
-django==2.0.2
-django-sslserver # don't use in prod !

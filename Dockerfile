@@ -5,9 +5,11 @@ RUN apt-get update \
         sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip install --upgrade pip
+
 WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY ./sample_app/requirements/*.txt sample_app/requirements/
+RUN pip install -r sample_app/requirements/development.txt
 COPY . .
 
 EXPOSE 8000
