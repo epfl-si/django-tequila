@@ -45,7 +45,8 @@ bash: up
 	docker-compose $(DOCKERFILES) exec web bash
 
 shell: up
-	docker-compose $(DOCKERFILES) exec web python manage.py shell
+	docker-compose $(DOCKERFILES) exec web python manage.py shell_plus
 
 pep8:
 	flake8 . --max-line-length=120 --exclude=migrations
+
