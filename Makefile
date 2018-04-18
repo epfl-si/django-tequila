@@ -34,7 +34,7 @@ stop:
 logs:
 	docker-compose $(DOCKERFILES) logs -f
 
-reset: build up
+reset: build up init-db
 
 test:
 	docker-compose $(DOCKERFILES) -f docker-compose.test.yml build
