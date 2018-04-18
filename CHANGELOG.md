@@ -2,12 +2,16 @@
 All notable changes to this project will be documented in this file.
 
 ## [unreleased]
+### Added
+- A test framework trough docker
+
 ### Change
-- Compatible with Django 2. Meaning it will work only on a django>1.10
+- Compatible with Django 2. Meaning we will suport only django 1.11 and 2.0
 - Update the sample_app to reflect this evolution
 
 ### Fix
 - Sample_app work with SSL
+- Fix field mapping for user, as some field where too small
 
 ## 2.1.18
 ### Fix
