@@ -60,14 +60,16 @@ def login(request):
     except AttributeError:
         strong_authentication = False
 
-    tequila_client = TequilaClient(EPFLConfig(server_url = server_url,
-                                        additional_params = additional_params,
-                                        redirect_to = next_path,
-                                        allows = allows_needed,
-                                        service = service_name,
-                                        allow_guests = True,
-                                        strong_authentication = strong_authentication,
-                                        ))
+    tequila_client = TequilaClient(
+        EPFLConfig(
+            server_url=server_url,
+            additional_params=additional_params,
+            redirect_to=next_path,
+            allows=allows_needed,
+            service=service_name,
+            allow_guests=True,
+            strong_authentication=strong_authentication,
+        ))
 
     request.session.set_test_cookie()
 
@@ -90,8 +92,8 @@ def logout(request):
 
 
 def not_allowed(request):
-    try :
+    try:
         not_allowed_text = settings.LOGIN_REDIRECT_TEXT_IF_NOT_ALLOWED
-    except AttributeError :
+    except AttributeError:
         not_allowed_text = "Not allowed"
     return HttpResponse(not_allowed_text)

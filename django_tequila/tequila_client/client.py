@@ -7,9 +7,10 @@ import logging
 import sys
 import urllib
 
+from django.utils.encoding import smart_str
+
 logger = logging.getLogger('django_tequila.client')
 
-from django.utils.encoding import smart_str
 
 try:
     # For Python 2
@@ -139,7 +140,7 @@ class TequilaClient(object):
             attributes[splitted_attr[0]] = splitted_attr[1]
 
         if not self._verify_attributes(attributes):
-            raise StandardError()
+            raise ValueError("Some Attributes returned by Tequila are missing")
 
         logger.debug(
             "Attributes after formatting and returned: \n%s" % json.dumps(

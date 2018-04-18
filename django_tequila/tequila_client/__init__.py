@@ -4,5 +4,5 @@
 
 from __future__ import absolute_import
 
-from .client import TequilaClient
-from .config import Config, EPFLConfig
+from .client import TequilaClient  # noqa
+from .config import Config, EPFLConfig # noqa

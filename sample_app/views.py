@@ -28,11 +28,12 @@ def protected_view(request):
 
 def unprotected_view(request):
     login_url = mark_safe('<a href="%s?next=%s">login url</a>' % (
-    reverse('login_view'), request.path))
+        reverse('login_view'), request.path))
     logout_url = mark_safe('<a href="%s?next=%s">logout url</a>' % (
-    reverse('logout'), request.path))
+        reverse('logout'), request.path))
 
     context = {'user': request.user,
+               'login_url': login_url,
                'logout_url': logout_url}
 
     return render(request, 'unprotected_view.html', context)

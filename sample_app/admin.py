@@ -18,4 +18,5 @@ ADDITIONAL_USER_FIELDS = (('Tequila fields', {'fields': ('sciper',
 class MyUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + ADDITIONAL_USER_FIELDS
 
+
 admin.site.register(User, MyUserAdmin)

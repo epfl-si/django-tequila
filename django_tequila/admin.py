@@ -12,6 +12,7 @@ except ImportError:
 from functools import update_wrapper
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseForbidden, HttpResponseRedirect, QueryDict
