@@ -1,0 +1,9 @@
+# add selenium to the testing stack
+version: "3"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome-debug:3.11
+    ports:
+      - "4444:4444"   # Selenium
+      - "5900:5900" # VNC server, pass is "secret"

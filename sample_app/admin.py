@@ -4,6 +4,19 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
+from .models import User
 
-admin.site.register(User, UserAdmin)
+ADDITIONAL_USER_FIELDS = (('Tequila fields', {'fields': ('sciper',
+                                                         'where',
+                                                         'units',
+                                                         'group',
+                                                         'classe',
+                                                         'statut',
+                                                         'groups',
+                                                         )}),)
+
+
+class MyUserAdmin(UserAdmin):
+    fieldsets = UserAdmin.fieldsets + ADDITIONAL_USER_FIELDS
+
+admin.site.register(User, MyUserAdmin)

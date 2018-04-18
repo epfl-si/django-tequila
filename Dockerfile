@@ -6,9 +6,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY ./sample_app/requirements/*.txt sample_app/requirements/
+RUN pip install -r sample_app/requirements/test.txt
 COPY . .
 
-EXPOSE 8000
-CMD ["python", "manage.py", "runsslserver", "0.0.0.0:8000"]
+EXPOSE 443
+CMD ["python", "manage.py", "runsslserver", "0.0.0.0:443"]
