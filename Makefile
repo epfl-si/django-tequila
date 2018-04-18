@@ -4,7 +4,7 @@ include .env
 	bash shell
 
 ifeq ($(DOCKERFILES),)
-DOCKERFILES := -f docker-compose-django2.yml -f docker-compose.test.yml
+DOCKERFILES := -f docker-compose-django2.yml
 endif
 
 superadmin:
@@ -37,7 +37,9 @@ logs:
 reset: build up
 
 test:
-	docker-compose $(DOCKERFILES) exec web pytest
+	docker-compose $(DOCKERFILES) -f docker-compose.test.yml build
+	docker-compose $(DOCKERFILES) -f docker-compose.test.yml up -d
+	docker-compose $(DOCKERFILES) -f docker-compose.test.yml exec web pytest
 
 bash: up
 	docker-compose $(DOCKERFILES) exec web bash
