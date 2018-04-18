@@ -1,6 +1,7 @@
 """
     (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
 """
+import logging
 
 from django.contrib.auth.backends import RemoteUserBackend
 from django.contrib.auth import get_user_model
@@ -8,7 +9,7 @@ from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client.config import EPFLConfig
 from django.conf import settings
 
-
+logger = logging.getLogger('django_tequila.backend')
 User = get_user_model()
 
 
@@ -105,20 +106,37 @@ class TequilaBackend(RemoteUserBackend):
 
         return is_active or is_active is None
 
+    @staticmethod
+    def _try_to_set_user_attributes(user, mapping, user_attributes):
+        """ As applications may have a different model without the needed fields,
+            be kind with forgiveness
+            mapping is the attribute_name in Django, user_attributes in Tequila
+            ex: (('sciper','uniqueid'), ...)
+        """
+        for model_field, tequila_field in mapping:
+            try:
+                if user_attributes.get(tequila_field):
+                    setattr(user, model_field, user_attributes.get(tequila_field))
+            except AttributeError:
+                logger.warning(
+                    'TUnable to save the Tequila attribute {} in user.{}'
+                    ' Does the User model can handle it ?'.format(tequila_field, model_field))
+
+        return user
+
     def update_attributes_from_tequila(self, user, user_attributes):
         """ Fill the user profile with tequila attributes """
-        try:
-            user.profile.sciper = user_attributes.get('uniqueid')
-            user.profile.where = user_attributes.get('where')
-            user.profile.unit = user_attributes.get('allunits')
-            user.profile.group = user_attributes.get('group')
-            user.profile.classe = user_attributes.get('classe')
-            user.profile.statut = user_attributes.get('statut')
-            user.profile.memberof = user_attributes.get('memberof')
-            user.profile.save()
-        except Exception:
-            # this attribute are not worth generating noise
-            pass
+        mapping = (
+            ('sciper', 'uniqueid'),
+            ('where', 'where'),
+            ('units', 'allunits'),
+            ('group', 'group'),
+            ('classe', 'classe'),
+            ('statut', 'statut'),
+            ('memberof', 'group'),
+        )
+
+        user = self._try_to_set_user_attributes(user, mapping, user_attributes)
 
         # check for create or update field part
         if user_attributes['firstname']:
