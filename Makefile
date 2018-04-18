@@ -1,7 +1,7 @@
 include .env
 
 .PHONY: build init-db up stop logs reset test test1 test2 \
-	bash shell
+	bash shell pep8
 
 ifeq ($(DOCKERFILES),)
 DOCKERFILES := -f docker-compose-django2.yml
@@ -46,3 +46,6 @@ bash: up
 
 shell: up
 	docker-compose $(DOCKERFILES) exec web python manage.py shell
+
+pep8:
+	flake8 . --max-line-length=120 --exclude=migrations
