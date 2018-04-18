@@ -1,25 +1,32 @@
-.PHONY: build up stop logs reset test bash
+.PHONY: build up stop logs reset test test1 test2 \
+	bash shell
+
+ifeq ($(DOCKERFILES),)
+DOCKERFILES := -f docker-compose-django2.yml -f docker-compose.test.yml
+endif
 
 build:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml build
+	docker-compose $(DOCKERFILES) build
 
 up:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
+	docker-compose $(DOCKERFILES) up -d
 
 down:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml down
+	docker-compose $(DOCKERFILES) down
 
 stop:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml stop
+	docker-compose $(DOCKERFILES) stop
 
 logs:
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml logs -f
+	docker-compose $(DOCKERFILES) logs -f
 
 reset: build up
-	@echo 'resetting'
 
-test: up
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml exec web pytest
+test:
+	docker-compose $(DOCKERFILES) exec web pytest
 
 bash: up
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml exec web bash
+	docker-compose $(DOCKERFILES) exec web bash
+
+shell: up
+	docker-compose $(DOCKERFILES) exec web python manage.py shell
