@@ -23,14 +23,14 @@ Configuration
 =============
 
 You can find an django app example in `./django-tequila/sample_app`
-Run it with Django 2 ::
+Add a .env file like the .env.sample and the run it with Django 2 ::
 
-    make build
-    make up
+    make build init-db
+
 
 Or, for Django 1.11, prefix every make with the DOCKERFILES env set, like this ::
 
-    DOCKERFILES='-f docker-compose-django1.yml' make build up
+    DOCKERFILES='-f docker-compose-django1.yml' make build init-db
 
 Then open `https://127.0.0.1/` in your browser
 
