@@ -133,7 +133,7 @@ class TequilaBackend(RemoteUserBackend):
             ('group', 'group'),
             ('classe', 'classe'),
             ('statut', 'statut'),
-            ('memberof', 'group'),
+            ('memberof', 'memberof'),
         )
 
         user = self._try_to_set_user_attributes(user, mapping, user_attributes)

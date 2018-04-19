@@ -14,6 +14,7 @@ class User(AbstractUser):
     classe = models.CharField(max_length=100, null=True, blank=True)
     statut = models.CharField(max_length=100, null=True, blank=True)
     group = models.TextField(null=True, blank=True)
+    memberof = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return """  Sciper:    %s
@@ -22,9 +23,11 @@ class User(AbstractUser):
                         group:     %s
                         classe:    %s
                         statut:    %s
+                        memberof:  %s
                     """ % (self.sciper,
                            self.where,
                            self.units,
                            self.group,
                            self.classe,
-                           self.statut)
+                           self.statut,
+                           self.memberof)

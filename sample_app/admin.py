@@ -12,6 +12,7 @@ ADDITIONAL_USER_FIELDS = (('Tequila fields', {'fields': ('sciper',
                                                          'group',
                                                          'classe',
                                                          'statut',
+                                                         'memberof',
                                                          )}),)
 
 
