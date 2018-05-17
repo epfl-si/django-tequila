@@ -7,7 +7,7 @@ RUN apt-get update \
 
 WORKDIR /usr/src/app
 COPY ./sample_app/requirements/*.txt sample_app/requirements/
-RUN pip install -r sample_app/requirements/test.txt
+RUN pip install -r sample_app/requirements/base.txt
 COPY . .
 
 EXPOSE 443
