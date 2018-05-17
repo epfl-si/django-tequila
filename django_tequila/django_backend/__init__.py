@@ -113,10 +113,16 @@ class TequilaBackend(RemoteUserBackend):
             mapping is the attribute_name in Django, user_attributes in Tequila
             ex: (('sciper','uniqueid'), ...)
         """
+        # for django >1.9 compatibilities
+        if hasattr(user, "profile"):
+            attributes_model = user.profile
+        else:
+            attributes_model = user
+
         for model_field, tequila_field in mapping:
             try:
                 if user_attributes.get(tequila_field):
-                    setattr(user, model_field, user_attributes.get(tequila_field))
+                    setattr(attributes_model, model_field, user_attributes.get(tequila_field))
             except AttributeError:
                 logger.warning(
                     'TUnable to save the Tequila attribute {} in user.{}'
