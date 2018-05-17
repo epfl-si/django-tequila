@@ -55,7 +55,7 @@ class TequilaClient(object):
         req = Request(final_url)
 
         # TODO: try..except HTTPError or URLError
-        logger.debug("Opening url %s..." % final_url)
+        logger.debug("Opening url %s , ..." % final_url)
         response = urlopen(req)
 
         return response.read()

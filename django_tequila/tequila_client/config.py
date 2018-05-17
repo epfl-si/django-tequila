@@ -70,7 +70,8 @@ class EPFLConfig(Config):
                             "allunits",
                             "where",
                             "group",
-                            "memberof"]
+                            "memberof",
+                            ]
 
         if allow_guests:
             self.allow_guests()
