@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client.config import EPFLConfig
 from django.conf import settings
+from django.db.utils import OperationalError
 
 logger = logging.getLogger('django_tequila.backend')
 User = get_user_model()
@@ -123,7 +124,7 @@ class TequilaBackend(RemoteUserBackend):
             try:
                 if user_attributes.get(tequila_field):
                     setattr(attributes_model, model_field, user_attributes.get(tequila_field))
-            except AttributeError:
+            except (AttributeError, OperationalError):
                 logger.warning(
                     'TUnable to save the Tequila attribute {} in user.{}'
                     ' Does the User model can handle it ?'.format(tequila_field, model_field))
