@@ -83,7 +83,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
         # to authenticate the user.
         logger.debug("First time user found, going for authentication "
                      "with the key %s..." % tequila_key)
-        user = auth.authenticate(tequila_key=tequila_key)
+        user = auth.authenticate(request, token=tequila_key)
 
         # deny page if not allowed
         if not user:

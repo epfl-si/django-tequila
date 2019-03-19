@@ -40,7 +40,7 @@ class TequilaBackend(RemoteUserBackend):
     except AttributeError:
         tequila_server_url = ""
 
-    def authenticate(self, tequila_key):
+    def authenticate(self, request, token=None):
         """
         The username passed as ``remote_user`` is considered trusted.  This
         method simply returns the ``User`` object with the given username,
@@ -49,6 +49,9 @@ class TequilaBackend(RemoteUserBackend):
         Returns None if ``create_unknown_user`` is ``False`` and a ``User``
         object with the given username is not found in the database.
         """
+
+        tequila_key = token
+
         if not tequila_key:
             return
         user = None
