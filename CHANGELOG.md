@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 - A test framework trough docker
 
 ### Change
-- Compatible with Django 2. Meaning we will suport only django 1.11 and 2.0
+- Compatible with Django 2.1. Meaning we will suport only django 1.11 and 2.1
 - Update the sample_app to reflect this evolution
 
 ### Fix
