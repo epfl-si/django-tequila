@@ -60,6 +60,11 @@ def login(request):
     except AttributeError:
         strong_authentication = False
 
+    try:
+        allowedrequesthosts = settings.TEQUILA_ALLOWED_REQUEST_HOSTS
+    except AttributeError:
+        allowedrequesthosts = None
+
     tequila_client = TequilaClient(
         EPFLConfig(
             server_url=server_url,
@@ -69,6 +74,7 @@ def login(request):
             service=service_name,
             allow_guests=True,
             strong_authentication=strong_authentication,
+            allowedrequesthosts=allowedrequesthosts,
         ))
 
     request.session.set_test_cookie()

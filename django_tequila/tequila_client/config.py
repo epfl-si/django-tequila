@@ -17,7 +17,8 @@ class Config(object):
                  want_right=None,
                  want_role=None,
                  allows=None,
-                 strong_authentication=False
+                 strong_authentication=False,
+                 allowedrequesthosts=None,
                  ):
 
         self.server_url = server_url
@@ -44,6 +45,7 @@ class Config(object):
         self.request = request
         self.langage = langage or "english"
         self.allows = allows
+        self.allowedrequesthosts = allowedrequesthosts
 
 
 class EPFLConfig(Config):

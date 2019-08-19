@@ -80,6 +80,9 @@ class TequilaClient(object):
                   'allows': self.config.allows
                   }
 
+        if self.config.allowedrequesthosts:
+            params['allowedrequesthosts'] = self.config.allowedrequesthosts
+
         if self.config.additional_params:
             params.update(self.config.additional_params)
 
