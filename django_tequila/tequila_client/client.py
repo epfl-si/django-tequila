@@ -80,9 +80,6 @@ class TequilaClient(object):
                   'allows': self.config.allows
                   }
 
-        if self.config.allowedrequesthosts:
-            params['allowedrequesthosts'] = self.config.allowedrequesthosts
-
         if self.config.additional_params:
             params.update(self.config.additional_params)
 
@@ -116,6 +113,9 @@ class TequilaClient(object):
             params = {'key': self._get_key()}
         else:
             raise ValueError()
+
+        if self.config.allowedrequesthosts:
+            params['allowedrequesthosts'] = self.config.allowedrequesthosts
 
         response = self._open_url(
             self.config.server_url + "/cgi-bin/tequila/fetchattributes",
