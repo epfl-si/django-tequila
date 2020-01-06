@@ -3,6 +3,7 @@
 """
 
 from setuptools import setup
+from io import open
 
 setup(
     name='django-tequila',
@@ -15,7 +16,7 @@ setup(
     url='https://github.com/epfl-idevelop/django-tequila',
     license="LGPLv3",
     description='A Tequila authentication backend for django',
-    long_description=open('README.rst', 'r').read(),
+    long_description=open('README.rst', 'r', encoding="utf-8").read(),
 
     packages=['django_tequila',
               'django_tequila.django_backend',
