@@ -60,6 +60,7 @@ def login(request):
     except AttributeError:
         strong_authentication = False
 
+
     tequila_client = TequilaClient(
         EPFLConfig(
             server_url=server_url,

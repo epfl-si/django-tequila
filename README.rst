@@ -75,8 +75,8 @@ urls.py
 
 Profile customization
 ---------------------
-You may want to keep some additional informations about the user.
-Take a look at `this page <http://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users>`_ for more informations about profile customization.
+You may want to keep some additional information about the user.
+Take a look at `this page <http://docs.djangoproject.com/en/dev/topics/auth/#storing-additional-information-about-users>`_ for more information about profile customization.
 
 Here is an example for a profile for Django 2.0
 
@@ -193,6 +193,15 @@ Advanced settings
 
   Default value is username
 
+    * You may want to allow multiple hosts to fetch requested information.
+  If this is the case, add this line to `settings.py`::
+
+    TEQUILA_ALLOWED_REQUEST_HOSTS = "the host ip"
+
+  Ex. : "192.168.1.1|192.168.1.2"
+
+  Default to None
+
 Logging
 -------
 
@@ -210,7 +219,7 @@ Login/logout links
 
 If you want the user to be redirected to a specific page after he logged/logout successfully, you have to add the 'next' parameter to your login url,
 like the default Django authentication backend.
-See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more informations.
+See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more information.
 
 
 \(c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017

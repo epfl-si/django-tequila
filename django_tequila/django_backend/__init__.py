@@ -56,13 +56,18 @@ class TequilaBackend(RemoteUserBackend):
             return
         user = None
 
+        try:
+            allowedrequesthosts = settings.TEQUILA_ALLOWED_REQUEST_HOSTS
+        except AttributeError:
+            allowedrequesthosts = None
+
         if self.tequila_server_url:
             user_attributes = TequilaClient(
                 EPFLConfig(server_url=self.tequila_server_url)).get_attributes(
-                tequila_key)
+                tequila_key, allowedrequesthosts)
         else:
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(
-                tequila_key)
+                tequila_key, allowedrequesthosts)
 
         # Give de possibility to choose a cusom value for the local username field
         custom_username_field = getattr(settings,

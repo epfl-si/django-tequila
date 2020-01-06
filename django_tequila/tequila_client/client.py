@@ -101,7 +101,7 @@ class TequilaClient(object):
             key = self.key.decode('UTF-8')
         return self.config.server_url + "/cgi-bin/tequila/auth?requestkey=" + key
 
-    def get_attributes(self, key=None):
+    def get_attributes(self, key=None, allowedrequesthosts=None):
         """ return a dictionnary of attributes setted by tequila,
             corresponding with the "request" parameter in config
          """
@@ -113,6 +113,9 @@ class TequilaClient(object):
             params = {'key': self._get_key()}
         else:
             raise ValueError()
+
+        if allowedrequesthosts:
+            params['allowedrequesthosts'] = allowedrequesthosts
 
         response = self._open_url(
             self.config.server_url + "/cgi-bin/tequila/fetchattributes",
