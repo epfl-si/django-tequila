@@ -193,7 +193,7 @@ Advanced settings
 
   Default value is username
 
-    * You may want to allow multiple hosts to fetch requested information.
+* You may want to allow multiple hosts to fetch requested information.
   If this is the case, add this line to `settings.py`::
 
     TEQUILA_ALLOWED_REQUEST_HOSTS = "the host ip"
@@ -201,6 +201,7 @@ Advanced settings
   Ex. : "192.168.1.1|192.168.1.2"
 
   Default to None
+
 
 Logging
 -------

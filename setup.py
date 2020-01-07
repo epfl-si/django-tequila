@@ -17,6 +17,7 @@ setup(
     license="LGPLv3",
     description='A Tequila authentication backend for django',
     long_description=open('README.rst', 'r', encoding="utf-8").read(),
+    long_description_content_type="text/x-rst",
 
     packages=['django_tequila',
               'django_tequila.django_backend',
