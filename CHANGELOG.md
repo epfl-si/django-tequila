@@ -1,9 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## 3.0.0
 ### Added
 - A test framework trough docker
+- Add allowedrequesthosts parameter
 
 ### Change
 - Compatible with Django 2.1. Meaning we will suport only django 1.11 and 2.1
@@ -11,7 +12,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fix
 - Sample_app work with SSL
-- Fix field mapping for user, as some field where too small
+- Fix field mapping for user, as some field where too small. Be warned, you may need to migrate your DB to reflect the change (see https://github.com/epfl-idevelop/django-tequila/commit/1f2f8af0bcd81c6dbd8d9a2385fbc17174f34ba3).
+- Fix pip installation encoding failure
 
 ## 2.1.18
 ### Fix
