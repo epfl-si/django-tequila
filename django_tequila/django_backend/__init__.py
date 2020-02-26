@@ -134,7 +134,7 @@ class TequilaBackend(RemoteUserBackend):
                     setattr(attributes_model, model_field, user_attributes.get(tequila_field))
             except (AttributeError, OperationalError):
                 logger.warning(
-                    'TUnable to save the Tequila attribute {} in user.{}'
+                    'Unable to save the Tequila attribute {} in user.{}'
                     ' Does the User model can handle it ?'.format(tequila_field, model_field))
 
         return user
@@ -184,6 +184,11 @@ class TequilaBackend(RemoteUserBackend):
                     user.email = user_attributes['email']
             else:
                 user.email = user_attributes['email']
+
+        # for django >1.9 compatibilities
+        # save the profile too
+        if hasattr(user, "profile"):
+            user.profile.save()
 
         user.save()
 
