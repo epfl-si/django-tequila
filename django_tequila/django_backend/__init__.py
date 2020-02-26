@@ -141,8 +141,6 @@ class TequilaBackend(RemoteUserBackend):
         if hasattr(user, "profile"):
             user.profile.save()
 
-        return user
-
     def update_attributes_from_tequila(self, user, user_attributes):
         """ Fill the user profile with tequila attributes """
         mapping = (
@@ -155,7 +153,7 @@ class TequilaBackend(RemoteUserBackend):
             ('memberof', 'memberof'),
         )
 
-        user = self._try_to_set_user_attributes(user, mapping, user_attributes)
+        self._try_to_set_user_attributes(user, mapping, user_attributes)
 
         # check for create or update field part
         if user_attributes['firstname']:
