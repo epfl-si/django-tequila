@@ -8,3 +8,5 @@ services:
       - .:/usr/src/app
     ports:
       - "443:443"
+      # this port is for debug tools
+      - "4445:4445"
