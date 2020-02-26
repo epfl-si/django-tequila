@@ -137,6 +137,10 @@ class TequilaBackend(RemoteUserBackend):
                     'Unable to save the Tequila attribute {} in user.{}'
                     ' Does the User model can handle it ?'.format(tequila_field, model_field))
 
+        # for django >1.9 compatibilities
+        if hasattr(user, "profile"):
+            user.profile.save()
+
         return user
 
     def update_attributes_from_tequila(self, user, user_attributes):
@@ -184,11 +188,6 @@ class TequilaBackend(RemoteUserBackend):
                     user.email = user_attributes['email']
             else:
                 user.email = user_attributes['email']
-
-        # for django >1.9 compatibilities
-        # save the profile too
-        if hasattr(user, "profile"):
-            user.profile.save()
 
         user.save()
 
