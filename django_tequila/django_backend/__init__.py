@@ -134,10 +134,12 @@ class TequilaBackend(RemoteUserBackend):
                     setattr(attributes_model, model_field, user_attributes.get(tequila_field))
             except (AttributeError, OperationalError):
                 logger.warning(
-                    'TUnable to save the Tequila attribute {} in user.{}'
+                    'Unable to save the Tequila attribute {} in user.{}'
                     ' Does the User model can handle it ?'.format(tequila_field, model_field))
 
-        return user
+        # for django >1.9 compatibilities
+        if hasattr(user, "profile"):
+            user.profile.save()
 
     def update_attributes_from_tequila(self, user, user_attributes):
         """ Fill the user profile with tequila attributes """
@@ -151,7 +153,7 @@ class TequilaBackend(RemoteUserBackend):
             ('memberof', 'memberof'),
         )
 
-        user = self._try_to_set_user_attributes(user, mapping, user_attributes)
+        self._try_to_set_user_attributes(user, mapping, user_attributes)
 
         # check for create or update field part
         if user_attributes['firstname']:
