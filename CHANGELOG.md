@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.0.1
+### Added
+- Tools for debugging the sample_app
+
+### Fix
+- Fix missing save on user's profile
+
 ## 3.0.0
 ### Added
 - A test framework trough docker
@@ -166,7 +173,7 @@ All notable changes to this project will be documented in this file.
 ## 1.8
 ### Changed
 Users have a sciper that is a string now, switching from int to string in the profile model for the sciper.
-	
+
 ## 1.7
 ### Added
 - Admin view for profile
@@ -201,14 +208,14 @@ Users have a sciper that is a string now, switching from int to string in the pr
 ### Changed
 - Tequila python client doesn't need django anymore
 - Warning :	You have to change your settings to "AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)" if you used the 1.1 version
-	
+
 ## 1.1
 ### Changed
 - Better url separation
 - Separated sample and functionality
 - Easier installation by using pip or python setup.py install
 - Renamed from tequila-django to django-tequila
-	
+
 ## 1.0
 ### Added
 - Initial release
