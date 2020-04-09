@@ -23,7 +23,7 @@ init-db: up
 	make superadmin
 
 up:
-	docker-compose $(DOCKERFILES) up -d
+	docker-compose $(DOCKERFILES) up
 
 down:
 	docker-compose $(DOCKERFILES) down
