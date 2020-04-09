@@ -202,6 +202,13 @@ Advanced settings
 
   Default to None
 
+* You can allow guests to log in
+  so add this line to `settings.py`::
+
+    TEQUILA_ALLOW_GUESTS = True
+
+  Default value is False
+
 
 Logging
 -------

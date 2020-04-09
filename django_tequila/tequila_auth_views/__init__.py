@@ -60,6 +60,11 @@ def login(request):
     except AttributeError:
         strong_authentication = False
 
+    try:
+        allow_guests = settings.TEQUILA_ALLOW_GUESTS
+    except AttributeError:
+        allow_guests = False
+
 
     tequila_client = TequilaClient(
         EPFLConfig(
@@ -68,7 +73,7 @@ def login(request):
             redirect_to=next_path,
             allows=allows_needed,
             service=service_name,
-            allow_guests=True,
+            allow_guests=allow_guests,
             strong_authentication=strong_authentication,
         ))
 
