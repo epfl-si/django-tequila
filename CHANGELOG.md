@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.1.0
+### Added
+- Allow guests settings
+
 ## 3.0.2
 ### Fix
 - Version number in .py
