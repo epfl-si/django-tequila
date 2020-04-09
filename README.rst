@@ -227,16 +227,16 @@ Debugging
 
 * The sample app can be used to debug. We use remote_pdb for this case. Set this snippet in the code ::
 
-  from remote_pdb import RemotePdb
-  RemotePdb('127.0.0.1', 4445).set_trace()
+    from remote_pdb import RemotePdb
+    RemotePdb('127.0.0.1', 4445).set_trace()
 
 * Then go into the container ::
 
-  make bash
+    make bash
 
 * Finally connect to the debug session with ::
 
-  telnet 127.0.0.1 4445
+    telnet 127.0.0.1 4445
 
 
 Login/logout links
