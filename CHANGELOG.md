@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.2.0
+### Change
+Update to Django 2.2
+
+### Fix
+- Being able to redirect to a different site after logout
+
 ## 3.1.0
 ### Added
 - Allow guests settings
