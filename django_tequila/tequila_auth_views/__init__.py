@@ -1,5 +1,5 @@
 """
-    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2018
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2020
 """
 
 from django.contrib.auth import get_user_model
@@ -7,12 +7,27 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.cache import never_cache
+from django.utils.http import is_safe_url
+from django.conf import settings
+
 from django_tequila.tequila_client import TequilaClient
 from django_tequila.tequila_client import EPFLConfig
-from django.conf import settings
+
 
 
 User = get_user_model()
+
+
+def get_redirect_url(request):
+    """Return the user-originating redirect URL if it's safe."""
+    redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
+
+    url_is_safe = is_safe_url(
+        url=redirect_to,
+        allowed_hosts=request.get_host(),
+        require_https=request.is_secure(),
+    )
+    return redirect_to if url_is_safe else ''
 
 
 def login(request):
@@ -86,9 +101,9 @@ login = never_cache(login)
 
 
 def logout(request):
-    if request.GET.get(REDIRECT_FIELD_NAME):
-        next_path = request.GET[REDIRECT_FIELD_NAME]
-    else:
+    next_path = get_redirect_url(request)
+
+    if not next_path:
         next_path = settings.LOGOUT_URL
 
     from django.contrib.auth import logout as auth_logout
