@@ -1,11 +1,12 @@
-django==2.2
-flake8==3.4.1
-mock==2.0.0
-pytest==3.2.2
-pytest-django==3.1.2
-pytest-mock==1.7.1
+django==3
+flake8
+mock
+pytest
+pytest-django
+pytest-mock
 selenium==3.11.0
 django-sslserver # don't use in prod !
-django-extensions==2.0.6
-ipython==6.3.1
-remote-pdb==2.0.0
+django-extensions
+ipython
+remote-pdb
+django-debug-toolbar

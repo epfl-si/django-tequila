@@ -16,6 +16,10 @@ SECRET_KEY = '+jnvf=z69!l@j(^*^h*+fdlt_61!1v446znccb)9%@tjiw1@x-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+INTERNAL_IPS = [
+     '127.0.0.1',
+ ]
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -32,9 +36,11 @@ INSTALLED_APPS = [
     'sslserver',
     'django_tequila',
     'sample_app',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -44,6 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_tequila.middleware.TequilaMiddleware',
 ]
+
+def show_toolbar(request):
+    return True
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}
 
 ROOT_URLCONF = 'sample_app.urls'
 
