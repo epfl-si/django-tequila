@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: build init-db up stop logs reset test test1 test2 \
+.PHONY: build init-db up stop logs reset hard-reset test test1 test2 \
 	bash shell pep8
 
 ifeq ($(DOCKERFILES),)
@@ -35,6 +35,9 @@ logs:
 	docker-compose $(DOCKERFILES) logs -f
 
 reset: build up init-db
+
+hard-reset:
+	docker-compose $(DOCKERFILES) down --rmi all -v
 
 test:
 	docker-compose $(DOCKERFILES) -f docker-compose.test.yml build
