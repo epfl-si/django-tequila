@@ -181,7 +181,7 @@ Advanced settings
 
   Default value is False
 
-* You may want to use a custom username value as for exemple the SCIPER.
+* You may want to use a custom username value as for example the SCIPER.
   If this is the case, add this line to `settings.py`::
 
     TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = 'uniqueid'
