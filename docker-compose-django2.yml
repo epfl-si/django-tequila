@@ -3,7 +3,7 @@ version: "3"
 services:
   web:
     build: .
-    command: bash -c "pip install django==2.2 && python manage.py runsslserver 0.0.0.0:443"
+    command: bash -c "pip install django==3 && python manage.py runsslserver 0.0.0.0:443"
     volumes:
       - .:/usr/src/app
     ports:

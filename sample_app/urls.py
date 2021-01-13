@@ -9,6 +9,9 @@ from django_tequila.admin import TequilaAdminSite
 from django_tequila.urls import urlpatterns as django_tequila_urlpatterns
 from sample_app.views import index, protected_view, unprotected_view
 
+from django.conf import settings
+from django.urls import include, path
+
 admin.autodiscover()
 admin.site.__class__ = TequilaAdminSite
 
@@ -23,3 +26,10 @@ urlpatterns = [
 ]
 
 urlpatterns += django_tequila_urlpatterns
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+                      path('__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns
