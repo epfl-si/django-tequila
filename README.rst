@@ -19,7 +19,7 @@ Installation
 Configuration
 =============
 
-You can find an django app example in `./django-tequila/sample_app`
+You can find some django app examples in `./django-tequila/sample_app`
 Add a .env file like the .env.sample and the run it with Django 2 ::
 
     make build init-db
@@ -27,7 +27,7 @@ Add a .env file like the .env.sample and the run it with Django 2 ::
 
 Or, for Django 1.11, prefix every make with the DOCKERFILES env set, like this ::
 
-    DOCKERFILES='-f docker-compose-django1.yml' make build init-db
+    DOCKERFILES='-f sample_app/python3-6-django-1/docker-compose.yml' make build init-db
 
 Then open `https://127.0.0.1/` in your browser
 
