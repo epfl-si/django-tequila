@@ -7,7 +7,7 @@ from django.contrib import admin
 
 from django_tequila.admin import TequilaAdminSite
 from django_tequila.urls import urlpatterns as django_tequila_urlpatterns
-from sample_app.views import index, protected_view, unprotected_view
+from django_tequila_app.views import index, protected_view, unprotected_view
 
 admin.autodiscover()
 admin.site.__class__ = TequilaAdminSite

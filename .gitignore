@@ -10,7 +10,8 @@
 docs/_build/*
 dist/*
 build/*
-sample_app/database.db
+sample_app/python3-8-django-2/django_tequila_app/database.db
+sample_app/python3-6-django-1/django_tequila_app/database.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

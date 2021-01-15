@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'sslserver',
     'django_tequila',
-    'sample_app',
+    'django_tequila_app',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django_tequila.middleware.TequilaMiddleware',
 ]
 
-ROOT_URLCONF = 'sample_app.urls'
+ROOT_URLCONF = 'django_tequila_app.urls'
 
 TEMPLATES = [
     {
@@ -63,7 +63,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sample_app.wsgi.application'
+WSGI_APPLICATION = 'django_tequila_app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'sample_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'sample_app', 'database.db'),
+        'NAME': os.path.join(BASE_DIR, 'django_tequila_app', 'database.db'),
     }
 }
 
@@ -95,7 +95,7 @@ STATIC_URL = '/static/'
 
 # Django-tequila specifics
 
-AUTH_USER_MODEL = 'sample_app.User'
+AUTH_USER_MODEL = 'django_tequila_app.User'
 AUTHENTICATION_BACKENDS = ('django_tequila.django_backend.TequilaBackend',)
 
 TEQUILA_SERVICE_NAME = "django_tequila_service"

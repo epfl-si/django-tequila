@@ -17,9 +17,9 @@ User info:
 <table>
 	<tr><td>Is staff (admin access) ?</td><td>{{ user.is_staff }}</td></tr>
 	{% if user.is_staff %}
-		<tr><td><a href="{% url 'admin:sample_app_user_change' user.id %}">Admin view</a></td></tr>
+		<tr><td><a href="{% url 'admin:django_tequila_app_user_change' user.id %}">Admin view</a></td></tr>
 	{% endif %}
-	
+
 	{% for key, item in user_info.items %}
 	<tr>
 		<td>{{ key }}</td>

@@ -4,7 +4,8 @@ include .env
 	bash shell pep8
 
 ifeq ($(DOCKERFILES),)
-DOCKERFILES := -f docker-compose-django2.yml
+#DOCKERFILES := -f sample_app/python3-6-django-1/docker-compose.yml
+DOCKERFILES := -f sample_app/python3-8-django-2/docker-compose.yml
 endif
 
 superadmin:
@@ -23,7 +24,7 @@ init-db: up
 	make superadmin
 
 up:
-	docker-compose $(DOCKERFILES) up
+	docker-compose $(DOCKERFILES) up --detach
 
 down:
 	docker-compose $(DOCKERFILES) down

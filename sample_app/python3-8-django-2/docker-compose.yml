@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py runsslserver 0.0.0.0:443"
+    volumes:
+      - ../../django_tequila:/usr/local/lib/python3.8/site-packages/django_tequila
+      - .:/usr/src/django_tequila_app
+    ports:
+      - "443:443"
+      # this port is for debug tools
+      - "4445:4445"
