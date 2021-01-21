@@ -3,6 +3,8 @@ version: "3"
 services:
   web:
     build: .
+    env_file:
+      - ../../.env
     command: bash -c "python manage.py runsslserver 0.0.0.0:443"
     volumes:
       - ../../django_tequila:/usr/local/lib/python3.8/site-packages/django_tequila

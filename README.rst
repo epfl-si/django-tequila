@@ -84,8 +84,11 @@ Here is an example for a profile for Django 2.0
 
 
     class User(AbstractUser):
+        USERNAME_FIELD = 'sciper'
+
         # should map https://c4science.ch/diffusion/3359/browse/master/conf/LdapDataConnector.conf
-        sciper = models.CharField(max_length=10, null=True, blank=True)
+        # see detail https://tequila.epfl.ch/cgi-bin/tequila/serverinfo
+        sciper = models.CharField(max_length=10, null=True, blank=True, unique=True)
         where = models.CharField(max_length=200, null=True, blank=True)
         unit = models.CharField(max_length=200, null=True, blank=True)
         units = models.TextField(null=True, blank=True)
@@ -111,8 +114,9 @@ Here is an example for a profile for Django 2.0
                                self.memberof)
 
 * in your `settings.py`, tell django to use your model::
+    AUTH_USER_MODEL = 'my_app.User'
+	TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = "uniqueid"
 
-	AUTH_PROFILE_MODULE = "my_app.userprofile"
 
 * Update your database::
 
@@ -181,8 +185,8 @@ Advanced settings
 
   Default value is False
 
-* You may want to use a custom username value as for example the SCIPER.
-  If this is the case, add this line to `settings.py`::
+* You should use the only unique custom username value :  the SCIPER.
+  If you want to use something different, add this line to `settings.py`::
 
     TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = 'uniqueid'
 

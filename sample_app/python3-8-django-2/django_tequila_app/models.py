@@ -7,8 +7,10 @@ from django.db import models
 
 
 class User(AbstractUser):
+    USERNAME_FIELD = 'sciper'
+
     # should map https://c4science.ch/diffusion/3359/browse/master/conf/LdapDataConnector.conf
-    sciper = models.CharField(max_length=10, null=True, blank=True)
+    sciper = models.CharField(max_length=10, null=True, blank=True, unique=True)
     where = models.CharField(max_length=200, null=True, blank=True)
     units = models.TextField(null=True, blank=True)
     classe = models.CharField(max_length=100, null=True, blank=True)
