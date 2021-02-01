@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'sslserver',
     'django_tequila',
+    'django_tequila_app',
     'userprofile',
 ]
 
