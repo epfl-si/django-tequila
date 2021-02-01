@@ -215,6 +215,7 @@ class TequilaBackend(RemoteUserBackend):
         """ Fill the user profile with tequila attributes """
         mapping = (
             ('sciper', 'uniqueid'),
+            ('username', 'username'),
             ('where', 'where'),
             ('units', 'allunits'),
             ('group', 'group'),
