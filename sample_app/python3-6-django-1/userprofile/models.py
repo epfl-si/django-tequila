@@ -4,11 +4,12 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
 
 
 class UserProfile(models.Model):
     """ UserProfile model """
-    user = models.OneToOneField(User, null=True, related_name="profile", on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, related_name="profile", on_delete=models.CASCADE)
 
     sciper = models.CharField(max_length=10, null=True, blank=True, unique=True)
     where = models.CharField(max_length=200, null=True, blank=True)
