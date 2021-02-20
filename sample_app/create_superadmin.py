@@ -9,7 +9,7 @@ password = os.environ.get('SUPER_ADMIN_PASSWORD')
 
 User = get_user_model()
 User.objects.filter(email=email).delete()
-u = User.objects.create_superuser(username, email, password)
+u = User.objects.create_superuser(username=username, email=email, password=None, sciper=sciper)
 
 is_app_using_profile = hasattr(settings, 'AUTH_PROFILE_MODULE')
 

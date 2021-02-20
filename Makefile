@@ -14,6 +14,7 @@ build:
 
 init-db: up
 	docker-compose $(DOCKERFILES) exec web python manage.py makemigrations
+	docker-compose $(DOCKERFILES) exec web python manage.py makemigrations django_tequila_app
 	docker-compose $(DOCKERFILES) exec web python manage.py migrate
 	make superadmin
 
