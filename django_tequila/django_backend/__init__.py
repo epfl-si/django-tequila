@@ -2,6 +2,7 @@
     (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2021
 """
 import logging
+import warnings
 
 from django.contrib.auth.backends import RemoteUserBackend
 from django.contrib.auth import get_user_model
@@ -70,9 +71,6 @@ class TequilaBackend(RemoteUserBackend):
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(
                 tequila_key, allowedrequesthosts)
 
-        # TODO: add username field in example, as User.profile and as seperated field in User
-        # TODO: set sciper field as unique=True
-
         # username has a tricky format, fix it
         if user_attributes.get('username'):
             u_name = user_attributes['username']
@@ -135,8 +133,11 @@ class TequilaBackend(RemoteUserBackend):
             # Give de possibility to choose a custom value for the local username field
             custom_username_field = getattr(settings,
                                             'TEQUILA_CUSTOM_USERNAME_ATTRIBUTE',
-                                            'username')  # should be uniqueid if we do it right
-            #TODO: raise obsolete warning if TEQUILA_CUSTOM_USERNAME_ATTRIBUTE='username' is used here
+                                            'username')  # should be uniqueid if done right
+            if custom_username_field == 'username':
+                # Still using the non-recommended version ? Respect it, but add a warning
+                warnings.warn("""The field username has user identification is not 
+                              recommended and may be removed in futures versions""", DeprecationWarning)
             tequila_user_identifier = user_attributes[custom_username_field]
 
             try:
