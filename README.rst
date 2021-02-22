@@ -19,20 +19,6 @@ Installation
 Configuration
 =============
 
-You can find some django app examples in `./django-tequila/sample_app`
-Add a .env file like the .env.sample and the run it with Django 2 ::
-
-    make build init-db
-
-
-Or, for Django 1.11, prefix every make with the DOCKERFILES env set, like this ::
-
-    DOCKERFILES='-f sample_app/python3-6-django-1/docker-compose.yml' make build init-db
-
-Then open `https://127.0.0.1/` in your browser
-
-Use `make stop` to shut it down
-
 settings.py
 -----------
 
@@ -69,6 +55,13 @@ urls.py
 
 	urlpatterns += django_tequila_urlpatterns
 
+Login/logout links
+------------------
+
+If you want the user to be redirected to a specific page after he logged/logout successfully, you have to add the 'next' parameter to your login url,
+like the default Django authentication backend.
+See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more information.
+
 
 Profile customization
 ---------------------
@@ -77,42 +70,12 @@ Take a look at `this page <http://docs.djangoproject.com/en/dev/topics/auth/#sto
 
 Here is an example for a profile for Django 2.0
 
-* Create a profile in your `models.py`, like this::
+* Create a custom User model in your `models.py` (see ./sample_app/python3-8-django-2/django_tequila_app/models.py)
 
-	from django.contrib.auth.models import AbstractUser
-    from django.db import models
+* in your `settings.py`, tell django to use your model (see ./sample_app/python3-8-django-2/django_tequila_app/settings.py)::
+    AUTH_USER_MODEL = 'my_app.User'
+    TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = "uniqueid"
 
-
-    class User(AbstractUser):
-        # should map https://c4science.ch/diffusion/3359/browse/master/conf/LdapDataConnector.conf
-        sciper = models.CharField(max_length=10, null=True, blank=True)
-        where = models.CharField(max_length=200, null=True, blank=True)
-        unit = models.CharField(max_length=200, null=True, blank=True)
-        units = models.TextField(null=True, blank=True)
-        classe = models.CharField(max_length=100, null=True, blank=True)
-        statut = models.CharField(max_length=100, null=True, blank=True)
-        group = models.TextField(null=True, blank=True)
-        memberof = models.TextField(null=True, blank=True)
-
-        def __unicode__(self):
-            return """  Sciper:    %s
-                            where:     %s
-                            units:     %s
-                            group:     %s
-                            classe:    %s
-                            statut:    %s
-                            memberof:  %s
-                        """ % (self.sciper,
-                               self.where,
-                               self.units,
-                               self.group,
-                               self.classe,
-                               self.statut,
-                               self.memberof)
-
-* in your `settings.py`, tell django to use your model::
-
-	AUTH_PROFILE_MODULE = "my_app.userprofile"
 
 * Update your database::
 
@@ -120,21 +83,8 @@ Here is an example for a profile for Django 2.0
 
 Site Admin customizations
 -------------------------
-If you want to use the admin site, be sure you have followed all steps to have a working django admin site,
-then follow these steps :
 
-* Modify your urls.py to look like this::
-
-    from django.contrib import admin
-    from django_tequila.admin import TequilaAdminSite
-    admin.autodiscover()
-    admin.site.__class__ = TequilaAdminSite
-
-* Please note that your username should identical to the one you use to login in Tequila.
-  If you do not have any user at the moment, or you want to edit some of them,
-  create a superuser with this command (replace <USERNAME> and <EMAIL> with you Tequila username and email)::
-
-    python manage.py createsuperuser --username=<USERNAME> --email=<EMAIL>
+- Add or modify your admin.py file, like ./sample_app/python3-8-django-2/django_tequila_app/admin.py
 
 
 Additional tips and settings
@@ -181,12 +131,12 @@ Advanced settings
 
   Default value is False
 
-* You may want to use a custom username value as for example the SCIPER.
-  If this is the case, add this line to `settings.py`::
+* The only value that is truly unique is the sciper ('uniqueid' in Tequila). If your application
+  need a different usage, you can set to a different field (at your own risk though). You can add this line to `settings.py`::
 
     TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = 'uniqueid'
 
-  Ex. : uniqueid, email, etc.
+  Ex. : username, email, etc.
 
   Default value is username
 
@@ -206,6 +156,23 @@ Advanced settings
 
   Default value is False
 
+
+Sample app
+===========
+
+You can find some django app examples in `./django-tequila/sample_app/python3-8-django-2`
+Add a .env file like the  `./.env.sample` and the run it with Django 2, at the root of the project ::
+
+    make build init-db
+
+
+Or, for Django 1.11, prefix every make with the DOCKERFILES env set, like this ::
+
+    DOCKERFILES='-f sample_app/python3-6-django-1/docker-compose.yml' make build init-db
+
+Then open `https://127.0.0.1/` in your browser
+
+Use `make stop` to shut it down
 
 Logging
 -------
@@ -234,14 +201,6 @@ Debugging
 * Finally connect to the debug session with ::
 
     telnet 127.0.0.1 4445
-
-
-Login/logout links
-------------------
-
-If you want the user to be redirected to a specific page after he logged/logout successfully, you have to add the 'next' parameter to your login url,
-like the default Django authentication backend.
-See `Django help for login-redirect-url <https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url>`_ for more information.
 
 
 \(c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI

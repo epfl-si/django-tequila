@@ -1,5 +1,3 @@
-include .env
-
 .PHONY: build init-db up stop logs reset hard-reset test test1 test2 \
 	bash shell pep8
 
@@ -9,17 +7,14 @@ DOCKERFILES := -f sample_app/python3-8-django-2/docker-compose.yml
 endif
 
 superadmin:
-	docker-compose $(DOCKERFILES) exec web \
-	python manage.py shell -c "from django.contrib.auth import get_user_model; \
-		User = get_user_model(); \
-		User.objects.filter(email='${SUPER_ADMIN_EMAIL}').delete(); \
-		User.objects.create_superuser('${SUPER_ADMIN_USERNAME}', '${SUPER_ADMIN_EMAIL}', '${SUPER_ADMIN_PASSWORD}');"
+	docker-compose $(DOCKERFILES) exec -T web python manage.py shell < sample_app/create_superadmin.py
 
 build:
 	docker-compose $(DOCKERFILES) build
 
 init-db: up
 	docker-compose $(DOCKERFILES) exec web python manage.py makemigrations
+	docker-compose $(DOCKERFILES) exec web python manage.py makemigrations django_tequila_app
 	docker-compose $(DOCKERFILES) exec web python manage.py migrate
 	make superadmin
 

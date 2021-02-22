@@ -1,9 +1,32 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.3.0
+### Change
+- the Remedy version : due to a change how Tequila manage the users identification, this version is a transition to a unique config, with the Django Username being the field "sciper".
+    - In detail, if a person is not active anymore inside Tequila, as Tequila username or email field can be redistributed to a new person, the only real unique ID for a person is the sciper ('uniqueid' in Tequila)
+
+- If you used so something else into TEQUILA_CUSTOM_USERNAME_ATTRIBUTE as uniqueid, a special behavior (see next point) is put in place to keep every user unique. You are not forced to change anything, though you can have overlapping users if you keep away from the 'uniqueid' field.
+  
+- To mitigate this change, this version use a special behavior : when a user is found with the same sciper but with an already existing username field : we rename (see `def backup_user_with_same_username` in django_tequila/django_backend/__init__.py) the "old" username to keep every user different. Of course, to identify this user, a sciper field should be set into the User model. 
+
+- Please consider verifying and, if needed, changing your models, your data and your settings. 
+
+- For the version 3.3.0 (not mandatory but highly recommanded) :
+    - Assert your model has a sciper field and is not empty, so user can be identify has unique :
+        - class User(AbstractUser): ...  sciper = models.CharField(max_length=10, null=True, blank=True, unique=True) ...
+
+- For the next major version :
+    - Assert your settings use the only field wanted in Tequila :
+        - TEQUILA_CUSTOM_USERNAME_ATTRIBUTE = "uniqueid"
+  - Assert your model use it as primary field
+      - class User(AbstractUser): ... USERNAME_FIELD = 'sciper'
+
+- see ./sample_app/python3-8-django-2 for a good app sample
+
 ## 3.2.0
 ### Change
-Update to Django 2.2
+- Update to Django 2.2
 
 ### Fix
 - Being able to redirect to a different site after logout

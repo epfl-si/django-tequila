@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     """ UserProfile model """
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, related_name="profile", on_delete=models.CASCADE)
 
-    sciper = models.CharField(max_length=10, null=True, blank=True)
+    sciper = models.CharField(max_length=10, null=True, blank=True, unique=True)
     where = models.CharField(max_length=200, null=True, blank=True)
     units = models.TextField(null=True, blank=True)
     group = models.TextField(null=True, blank=True)

@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 
-"""(c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017"""
+"""(c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2021"""
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.db import models
 from .models import UserProfile
+
 
 class UserProfileAdmin(admin.ModelAdmin):
 
