@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 - Support for the Tequila 2.1 protocol
 
 ### Change
-- Remove the useless trailing '?' if there is no paramters left when returning from Tequila
+- Remove the useless trailing '?' if there is no parameters left when returning from Tequila
 
 ## 3.3.0
 ### Change
