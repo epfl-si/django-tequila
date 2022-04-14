@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.4.0
+### Added
+- Support for the Tequila 2.1 protocol
+
+### Change
+- Remove the useless trailing '?' if there is no paramters left when returning from Tequila
+
 ## 3.3.0
 ### Change
 - the Remedy version : due to a change how Tequila manage the users identification, this version is a transition to a unique config, with the Django Username being the field "sciper".
