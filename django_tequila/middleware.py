@@ -1,5 +1,5 @@
 """
-    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2022
 """
 
 import logging
@@ -82,11 +82,18 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                 self._remove_invalid_user(request)
             return
 
+        try:
+            auth_check = request.GET['auth_check']
+        except KeyError:
+            # auth_check is not mandatory, at the moment
+            # anyway, the Tequila server may block the connexion by himself
+            auth_check = None
+
         # We are seeing this user for the first time in this session, attempt
         # to authenticate the user.
         logger.debug("First time user found, going for authentication "
                      "with the key %s..." % tequila_key)
-        user = auth.authenticate(request, token=tequila_key)
+        user = auth.authenticate(request, token=tequila_key, auth_check=auth_check)
 
         # deny page if not allowed
         if not user:
@@ -120,7 +127,7 @@ class TequilaMiddleware(PersistentRemoteUserMiddleware):
                     # QueryDict to dict
                     params = request.GET.dict()
 
-                    cleaned_url += get_query_string(params, remove=[self.header])
+                    cleaned_url += get_query_string(params, remove=[self.header, 'auth_check'])
                     return HttpResponseRedirect(cleaned_url)
 
             except AttributeError:

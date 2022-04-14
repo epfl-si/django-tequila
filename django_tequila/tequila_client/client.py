@@ -1,5 +1,5 @@
 """
-    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2017
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2022
 """
 
 import json
@@ -77,7 +77,8 @@ class TequilaClient(object):
 
         params = {'urlacces': smart_str(self.config.redirect_to),
                   'service': self.config.service,
-                  'allows': self.config.allows
+                  'allows': self.config.allows,
+                  'mode_auth_check': '1'  # since Tequila 2.1
                   }
 
         if self.config.additional_params:
@@ -101,7 +102,7 @@ class TequilaClient(object):
             key = self.key.decode('UTF-8')
         return self.config.server_url + "/cgi-bin/tequila/auth?requestkey=" + key
 
-    def get_attributes(self, key=None, allowedrequesthosts=None):
+    def get_attributes(self, key=None, allowedrequesthosts=None, auth_check=None):
         """ return a dictionnary of attributes setted by tequila,
             corresponding with the "request" parameter in config
          """
@@ -112,7 +113,12 @@ class TequilaClient(object):
         elif self.request_key:
             params = {'key': self._get_key()}
         else:
-            raise ValueError()
+            raise ValueError("The token key value is missing")
+
+        if auth_check:
+            params['auth_check'] = auth_check
+        else:
+            logger.warning("The auth_check value is missing when requesting attributes from Tequila. As Tequila 2.1, it will be mandatory.")
 
         if allowedrequesthosts:
             params['allowedrequesthosts'] = allowedrequesthosts

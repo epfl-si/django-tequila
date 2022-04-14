@@ -1,5 +1,5 @@
 """
-    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2021
+    (c) All rights reserved. ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE, Switzerland, VPSI, 2022
 """
 import logging
 import warnings
@@ -42,7 +42,7 @@ class TequilaBackend(RemoteUserBackend):
     except AttributeError:
         tequila_server_url = ""
 
-    def authenticate(self, request, token=None):
+    def authenticate(self, request, token=None, auth_check=None):
         """
         The username passed as ``remote_user`` is considered trusted.  This
         method simply returns the ``User`` object with the given username,
@@ -66,10 +66,10 @@ class TequilaBackend(RemoteUserBackend):
         if self.tequila_server_url:
             user_attributes = TequilaClient(
                 EPFLConfig(server_url=self.tequila_server_url)).get_attributes(
-                tequila_key, allowedrequesthosts)
+                tequila_key, allowedrequesthosts, auth_check)
         else:
             user_attributes = TequilaClient(EPFLConfig()).get_attributes(
-                tequila_key, allowedrequesthosts)
+                tequila_key, allowedrequesthosts, auth_check)
 
         # username has a tricky format, fix it
         if user_attributes.get('username'):
