@@ -38,7 +38,10 @@ def get_query_string(params, new_params=None, remove=None):
         if isinstance(v, (list, tuple)):
             p[k] = v[0]
 
-    return '?%s' % urlencode(p)
+    if p:
+        return '?%s' % urlencode(p)
+    else:
+        return ''
 
 
 class TequilaMiddleware(PersistentRemoteUserMiddleware):
