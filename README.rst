@@ -117,7 +117,7 @@ Advanced settings
 	TEQUILA_CONFIG_ADDITIONAL = {'allowedorgs': 'EPFL, UNIL'}
 
 * Everytime the user connect trought the Tequila process, he is redirected to an url
-  that has a 'key' paramter. For some esthetic reasons,you may want to remove this parameter,
+  that has a 'key' parameter. For some esthetic reasons,you may want to remove this parameter,
   so add this line to `settings.py`::
 
     TEQUILA_CLEAN_URL = True
