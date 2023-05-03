@@ -7,7 +7,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.cache import never_cache
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.conf import settings
 
 from django_tequila.tequila_client import TequilaClient
@@ -22,7 +22,7 @@ def get_redirect_url(request):
     """Return the user-originating redirect URL if it's safe."""
     redirect_to = request.GET.get(REDIRECT_FIELD_NAME)
 
-    url_is_safe = is_safe_url(
+    url_is_safe = url_has_allowed_host_and_scheme(
         url=redirect_to,
         allowed_hosts=request.get_host(),
         require_https=request.is_secure(),
