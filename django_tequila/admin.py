@@ -16,6 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponseForbidden, HttpResponseRedirect, QueryDict
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
@@ -41,7 +42,7 @@ class TequilaAdminSite(AdminSite):
             inner = csrf_protect(inner)
         return update_wrapper(inner, view)
 
-    @never_cache
+    @method_decorator(never_cache)
     def login(self, request, extra_context=None):
         """
         Don't display the login form, use the Tequila login process instead

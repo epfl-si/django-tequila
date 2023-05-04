@@ -1,0 +1,29 @@
+<h3>Actions :</h3>
+<div><a href="/login">Login</a></div>
+<div><a href="/logout">Logout</a></div>
+<br />
+<h3>Pages :</h3>
+<div><a href="{% url 'protected' %}">Protected</a></div>
+<div><a href="{% url 'unprotected' %}">UnProtected</a></div>
+<div><a href="/admin">Admin</a></div>
+
+<br />
+<br />
+
+User info:
+<br />
+<br />
+
+<table>
+	<tr><td>Is staff (admin access) ?</td><td>{{ user.is_staff }}</td></tr>
+	{% if user.is_staff %}
+		<tr><td><a href="{% url 'admin:django_tequila_app_user_change' user.id %}">Admin view</a></td></tr>
+	{% endif %}
+
+	{% for key, item in user_info.items %}
+	<tr>
+		<td>{{ key }}</td>
+		<td>{{ item }}</td>
+	</tr>
+	{% endfor %}
+</table>

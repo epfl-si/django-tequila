@@ -7,7 +7,7 @@ django-tequila
 Requirements
 ============
 
-``django-tequila`` needs the Django 2.2 LTS
+``django-tequila`` needs the Django 3.2+ LTS
 
 This project also expects a fully operational `Tequila <http://tequila.epfl.ch/>`_ server.
 
@@ -160,8 +160,8 @@ Advanced settings
 Sample app
 ===========
 
-You can find some django app examples in `./django-tequila/sample_app/python3-8-django-2`
-Add a .env file like the  `./.env.sample` and the run it with Django 2, at the root of the project ::
+You can find some django app examples in `./django-tequila/sample_app/python3-8-django-4`
+Add a .env file like the  `./.env.sample` and the run it with Django 4, at the root of the project ::
 
     make build init-db
 
@@ -172,7 +172,7 @@ Or, for Django 1.11, prefix every make with the DOCKERFILES env set, like this :
 
 Then open `https://127.0.0.1/` in your browser
 
-Use `make stop` to shut it down
+Use `make logs` if needed, or `make stop` to shut it down
 
 Logging
 -------

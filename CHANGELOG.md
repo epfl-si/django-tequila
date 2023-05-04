@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.0.0
+### Change
+- Update to Django 3.2+
+- Add a sample_app for Django 4.2
+
 ## 3.4.0
 ### Added
 - Support for the Tequila 2.1 protocol

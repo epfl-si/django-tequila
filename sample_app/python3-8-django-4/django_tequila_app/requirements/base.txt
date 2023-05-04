@@ -1,0 +1,13 @@
+django==4.2
+flake8
+mock
+pytest
+pytest-django
+pytest-mock
+selenium
+django-sslserver # don't use in prod !
+django-extensions
+ipython
+remote-pdb
+django-tequila
+django-debug-toolbar
